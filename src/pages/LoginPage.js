@@ -7,6 +7,7 @@ import basil from '../images/basil.jpg';
 import herb from '../images/herb.jpg';
 import styled from 'styled-components';
 import '../lib/styles/fonts/font.css';
+import * as googleAPI from '../lib/api/auth';
 
 const LoginPage = () => {
     document.body.style.cssText = `
@@ -22,7 +23,7 @@ const LoginPage = () => {
                 <img className='header_logo' src={logo} alt="logo" />
                 <div className='header_text' style={{fontFamily:"S-CoreDream-2Light", fontSize:"1.75rem", fontWeight:"bold"}}>맛있는 녀석들</div>
                 <TransparentButton className='header_usbutton'>Contact Us</TransparentButton>
-                <NavyButton className='header_loginbutton'>로그인</NavyButton>
+                <NavyButton className='header_loginbutton' onClick={googleAPI.login}>로그인</NavyButton>
             </div>
             <div className='explainbox'>
                 <img className='lemonimage' src={lemontree} alt="lemon" />

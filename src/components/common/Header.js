@@ -4,6 +4,7 @@ import Responsive from './Responsive';
 import NavyButton from './NavyButton';
 import logo from '../../images/logo.png';
 import '../../lib/styles/fonts/font.css';
+import * as googleAPI from '../../lib/api/auth';
 
 const HeaderBlock = styled.div`
     position: fixed;
@@ -50,7 +51,7 @@ const Header = () => {
                     </Link>
                     <div className='logotext'>맛있는 녀석들</div>
                     <div className='right'>
-                        <NavyButton>로그아웃</NavyButton>
+                        <NavyButton onClick={googleAPI.logout}>로그아웃</NavyButton>
                     </div>
                 </Wrapper>
             </HeaderBlock>

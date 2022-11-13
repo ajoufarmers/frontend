@@ -8,7 +8,6 @@ import community from '../images/community.png';
 import mypage from '../images/mypage.png';
 import GreenButton from '../components/common/GreenButton';
 import styled from 'styled-components';
-import Responsive from '../components/common/Responsive';
 
 const StyledButton = styled(GreenButton)`
     height: 3rem;
