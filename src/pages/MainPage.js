@@ -63,7 +63,7 @@ const MainPage = () => {
                 </div>
             </div>
             <div className='image'>
-                <img src={grass} alt="grass" style={{width: '100%', marginTop: '-9rem'}} />
+                {/* <img src={grass} alt="grass" style={{width: '100%', marginTop: '-9rem'}} /> */}
             </div>
         </>
     )

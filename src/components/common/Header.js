@@ -38,7 +38,7 @@ const Wrapper = styled(Responsive)`
 `;
 
 const Spacer = styled.div`
-    height: 6rem;
+    height: 7.5rem;
 `;
 
 const Header = () => {

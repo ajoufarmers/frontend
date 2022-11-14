@@ -1,0 +1,37 @@
+@import '../../lib/styles/fonts/font.css';
+
+.title {
+    margin: 0 auto;
+    text-align: center;
+    /* background-color: aquamarine; */
+    font-family: "NeoDunggeunmo";
+    font-size: 1.7rem;
+    font-weight: normal;
+}
+
+.question_box {
+    /* background-color: aqua; */
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 2rem;
+    font-family: "S-CoreDream-3Light";
+    font-size: 1.3rem;
+    font-weight: bolder;
+}
+
+.answer_box {
+    /* background-color: bisque; */
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 1rem;
+    font-family: "S-CoreDream-2Light";
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.buttons {
+    margin: 0 auto;
+    margin-top: 3rem;
+    /* background-color: cadetblue; */
+    text-align: center;
+}
