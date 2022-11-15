@@ -2,9 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import './Step.css';
 import GreenButton from '../common/GreenButton';
 
-const Step1 = ({ nextSteps }) => {
+const Step1 = ({ arr, nextSteps }) => {
     // 종류 : 버섯류,허브,열매,잎 및 줄기,뿌리 및 땅속줄기, 새싹류
+    const [isChecked, setIsChecked] = useState(false);
     const [checkedValue, setCheckedValue] = useState('');
+    const [checkList, setCheckList] = useState([false, false, false, false, false, false]);
     const TYPE = [
         { id: 0, name: 'plant', value: '버섯류' },
         { id: 1, name: 'plant', value: '허브' },
@@ -18,11 +20,26 @@ const Step1 = ({ nextSteps }) => {
         console.log('id', id);
         let checkPick = document.getElementsByName('plant');
         Array.prototype.forEach.call(checkPick, function(element) {
-            console.log('el', element);
+            // console.log('el', element);
             element.checked = false;
         });
         id.target.checked = true;
         setCheckedValue(id.target.defaultValue);
+        setIsChecked(true);
+        arr[0] = id.target.defaultValue;
+        console.log(arr);
+    }
+
+    function checkOne() {
+        return (
+            <div>
+                {
+                    isChecked === false
+                    ? alert("선택지를 골라주세요!")
+                    : null
+                }
+            </div>
+        )
     }
 
     useEffect(() => {
@@ -58,6 +75,7 @@ const Step1 = ({ nextSteps }) => {
                 name="plant"
                 value="버섯류"
                 onChange={(e) => checkOnlyOne(e)}
+                // defaultChecked={checkList[0]}
                 style={{marginBottom:'0.8rem'}}
             />
             <label htmlFor='0'>버섯류</label> <br />
@@ -108,7 +126,14 @@ const Step1 = ({ nextSteps }) => {
             <label htmlFor='0'>새싹류</label> <br />
             </div>
             <div className='buttons'>
-                <GreenButton onClick={nextSteps}>다음</GreenButton>
+                {
+                    isChecked === true
+                    ?
+                        <GreenButton onClick={nextSteps}>다음</GreenButton>
+                    : <div>
+                        <GreenButton onClick={checkOne}>다음</GreenButton>
+                    </div>
+                }
             </div>
         </>
     )

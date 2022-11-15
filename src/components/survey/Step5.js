@@ -31,19 +31,35 @@ const StyledButton = styled(GreenButton)`
 //     })
 // };
 
-const Step5 = ({ prevSteps, nextSteps }) => {
+const Step5 = ({ arr, prevSteps, nextSteps }) => {
     // 물 주는 빈도 : 낮음, 보통, 자주
     const [checkedValue, setCheckedValue] = useState('');
+    const [isChecked, setIsChecked] = useState(false);
 
     function checkOnlyOne(id) {
         console.log('id', id);
         let checkPick = document.getElementsByName('plant');
         Array.prototype.forEach.call(checkPick, function(element) {
-            console.log('el', element);
+            // console.log('el', element);
             element.checked = false;
         });
         id.target.checked = true;
         setCheckedValue(id.target.defaultValue);
+        setIsChecked(true);
+        arr[4] = id.target.defaultValue;
+        console.log(arr);
+    }
+
+    function checkOne() {
+        return (
+            <div>
+                {
+                    isChecked === false
+                    ? alert("선택지를 골라주세요!")
+                    : null
+                }
+            </div>
+        )
     }
 
     useEffect(() => {
@@ -86,8 +102,18 @@ const Step5 = ({ prevSteps, nextSteps }) => {
             <label htmlFor='0'>{'자주(주 2회 이상'}</label> <br />
             </div>
             <div className='buttons'>
-                <StyledButton onClick={prevSteps}>이전</StyledButton>
-                <StyledButton onClick={nextSteps}>완료</StyledButton>
+                {
+                    isChecked === true
+                    ?
+                        <div>
+                        <StyledButton onClick={prevSteps}>이전</StyledButton>
+                        <StyledButton onClick={nextSteps}>완료</StyledButton>
+                        </div>
+                    : <div>
+                        <StyledButton onClick={prevSteps}>이전</StyledButton>
+                        <StyledButton onClick={checkOne}>완료</StyledButton>
+                    </div>
+                }
             </div>
         </>
     )
