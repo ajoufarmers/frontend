@@ -31,7 +31,7 @@ const StyledButton = styled(GreenButton)`
 //     })
 // };
 
-const Step5 = ({ arr, prevSteps, nextSteps }) => {
+const Step5 = ({ checkList, arr, prevSteps, nextSteps }) => {
     // 물 주는 빈도 : 낮음, 보통, 자주
     const [checkedValue, setCheckedValue] = useState('');
     const [isChecked, setIsChecked] = useState(false);
@@ -48,6 +48,16 @@ const Step5 = ({ arr, prevSteps, nextSteps }) => {
         setIsChecked(true);
         arr[4] = id.target.defaultValue;
         console.log(arr);
+
+        console.log(id.target.id);
+        checkList[id.target.id] = true;
+
+        for(let i=0; i < checkList.length; i++) {
+            if(arr !== 0) {
+                checkList[i] = false;
+            }
+            checkList[id.target.id] = true;
+        }
     }
 
     function checkOne() {
@@ -64,6 +74,10 @@ const Step5 = ({ arr, prevSteps, nextSteps }) => {
 
     useEffect(() => {
         console.log("checkbox value", checkedValue);
+        if (arr.length !== 4)
+        {
+            setIsChecked(true);
+        }
     }, [checkedValue]);
 
     return (
@@ -79,27 +93,30 @@ const Step5 = ({ arr, prevSteps, nextSteps }) => {
                 name="plant"
                 value="낮음"
                 onChange={(e) => checkOnlyOne(e)}
+                defaultChecked={checkList[0]}
                 style={{marginBottom:'0.8rem'}}
             />
-            <label htmlFor='0'>{'낮음(열흘에 한 번)'}</label> <br />
+            <label htmlFor='0'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{'낮음(열흘에 한 번)'}</label> <br />
             <input
                 type="checkbox"
                 id="1"
                 name="plant"
                 value="보통"
                 onChange={(e) => checkOnlyOne(e)}
+                defaultChecked={checkList[1]}
                 style={{marginBottom:'0.8rem'}}
             />
-            <label htmlFor='0'>{'보통(주 1회)'}</label> <br />
+            <label htmlFor='1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{'보통(주 1회)'}</label> <br />
             <input
                 type="checkbox"
                 id="2"
                 name="plant"
                 value="자주"
                 onChange={(e) => checkOnlyOne(e)}
+                defaultChecked={checkList[2]}
                 style={{marginBottom:'0.8rem'}}
             />
-            <label htmlFor='0'>{'자주(주 2회 이상'}</label> <br />
+            <label htmlFor='2'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{'자주(주 2회 이상'}</label> <br />
             </div>
             <div className='buttons'>
                 {

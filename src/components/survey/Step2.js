@@ -9,10 +9,11 @@ const StyledButton = styled(GreenButton)`
     }
 `;
 
-const Step2 = ({ arr, prevSteps, nextSteps }) => {
+const Step2 = ({ checkList, arr, prevSteps, nextSteps }) => {
     // 사이즈 : 작은 식물, 중간 크기의 식물, 큰 식물
     const [checkedValue, setCheckedValue] = useState('');
     const [isChecked, setIsChecked] = useState(false);
+
 
     function checkOnlyOne(id) {
         console.log('id', id);
@@ -26,6 +27,16 @@ const Step2 = ({ arr, prevSteps, nextSteps }) => {
         setIsChecked(true);
         arr[1] = id.target.defaultValue;
         console.log(arr);
+
+        console.log(id.target.id);
+        checkList[id.target.id] = true;
+
+        for(let i=0; i < checkList.length; i++) {
+            if(arr !== 0) {
+                checkList[i] = false;
+            }
+            checkList[id.target.id] = true;
+        }
     }
 
     function checkOne() {
@@ -42,6 +53,11 @@ const Step2 = ({ arr, prevSteps, nextSteps }) => {
 
     useEffect(() => {
         console.log("checkbox value", checkedValue);
+        console.log("list", checkList);
+        if (arr.length !== 1)
+        {
+            setIsChecked(true);
+        }
     }, [checkedValue]);
 
     return (
@@ -57,27 +73,30 @@ const Step2 = ({ arr, prevSteps, nextSteps }) => {
                 name="plant"
                 value="작은 식물"
                 onChange={(e) => checkOnlyOne(e)}
+                defaultChecked={checkList[0]}
                 style={{marginBottom:'0.8rem'}}
             />
-            <label htmlFor='0'>작은 식물</label> <br />
+            <label htmlFor='0'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;작은 식물</label> <br />
             <input
                 type="checkbox"
                 id="1"
                 name="plant"
                 value="중간 크기의 식물"
                 onChange={(e) => checkOnlyOne(e)}
+                defaultChecked={checkList[1]}
                 style={{marginBottom:'0.8rem'}}
             />
-            <label htmlFor='0'>중간 크기의 식물</label> <br />
+            <label htmlFor='1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;중간 크기의 식물</label> <br />
             <input
                 type="checkbox"
                 id="2"
                 name="plant"
                 value="큰 식물"
                 onChange={(e) => checkOnlyOne(e)}
+                defaultChecked={checkList[2]}
                 style={{marginBottom:'0.8rem'}}
             />
-            <label htmlFor='0'>큰 식물</label> <br />
+            <label htmlFor='2'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;큰 식물</label> <br />
             </div>
             <div className='buttons'>
                 {

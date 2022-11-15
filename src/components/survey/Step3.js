@@ -9,7 +9,7 @@ const StyledButton = styled(GreenButton)`
     }
 `;
 
-const Step3 = ({ arr, prevSteps, nextSteps }) => {
+const Step3 = ({ checkList, arr, prevSteps, nextSteps }) => {
     // 난이도 : 상,중,하
     const [checkedValue, setCheckedValue] = useState('');
     const [isChecked, setIsChecked] = useState(false);
@@ -26,6 +26,16 @@ const Step3 = ({ arr, prevSteps, nextSteps }) => {
         setIsChecked(true);
         arr[2] = id.target.defaultValue;
         console.log(arr);
+
+        console.log(id.target.id);
+        checkList[id.target.id] = true;
+
+        for(let i=0; i < checkList.length; i++) {
+            if(arr !== 0) {
+                checkList[i] = false;
+            }
+            checkList[id.target.id] = true;
+        }
     }
 
     function checkOne() {
@@ -42,6 +52,11 @@ const Step3 = ({ arr, prevSteps, nextSteps }) => {
 
     useEffect(() => {
         console.log("checkbox value", checkedValue);
+        console.log("list", checkList);
+        if (arr.length !== 2)
+        {
+            setIsChecked(true);
+        }
     }, [checkedValue]);
 
     return (
@@ -57,27 +72,30 @@ const Step3 = ({ arr, prevSteps, nextSteps }) => {
                 name="plant"
                 value="상"
                 onChange={(e) => checkOnlyOne(e)}
+                defaultChecked={checkList[0]}
                 style={{marginBottom:'0.8rem'}}
             />
-            <label htmlFor='0'>상</label> <br />
+            <label htmlFor='0'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;상</label> <br />
             <input
                 type="checkbox"
                 id="1"
                 name="plant"
                 value="중"
                 onChange={(e) => checkOnlyOne(e)}
+                defaultChecked={checkList[1]}
                 style={{marginBottom:'0.8rem'}}
             />
-            <label htmlFor='0'>중</label> <br />
+            <label htmlFor='1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;중</label> <br />
             <input
                 type="checkbox"
                 id="2"
                 name="plant"
                 value="하"
                 onChange={(e) => checkOnlyOne(e)}
+                defaultChecked={checkList[2]}
                 style={{marginBottom:'0.8rem'}}
             />
-            <label htmlFor='0'>하</label> <br />
+            <label htmlFor='2'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;하</label> <br />
             </div>
             <div className='buttons'>
                 {

@@ -8,6 +8,12 @@ import Step5 from './Step5';
 const Survey = () => {
     const [step, setStep] = useState(1);
     const [arr, setArr] = useState([]);
+    const [checkList1, setCheckList1] = useState([false, false, false, false, false, false]);
+    const [checkList2, setCheckList2] = useState([false, false, false]);
+    const [checkList3, setCheckList3] = useState([false, false, false]);
+    const [checkList4, setCheckList4] = useState([false, false, false, false]);
+    const [checkList5, setCheckList5] = useState([false, false, false]);
+
 
     // const changeInput = (id) => {
     //     const {value, name} = id.target
@@ -22,28 +28,31 @@ const Survey = () => {
     const prevSteps = () => {
         setStep(step-1);
     }
+    const checkOne = () => {
+        alert("선택");
+    }
 
     return (
         <div className='wrap'>
             {
                 step === 1 &&
-                <Step1 arr={arr} nextSteps={nextSteps} />
+                <Step1 checkList={checkList1} arr={arr} nextSteps={nextSteps} checkOne={checkOne}/>
             }
             {
                 step === 2 &&
-                <Step2 arr={arr} prevSteps={prevSteps} nextSteps={nextSteps} />
+                <Step2 checkList={checkList2} arr={arr} prevSteps={prevSteps} nextSteps={nextSteps} />
             }
             {
                 step === 3 &&
-                <Step3 arr={arr} prevSteps={prevSteps} nextSteps={nextSteps} />
+                <Step3 checkList={checkList3} arr={arr} prevSteps={prevSteps} nextSteps={nextSteps} />
             }
             {
                 step === 4 &&
-                <Step4 arr={arr} prevSteps={prevSteps} nextSteps={nextSteps} />
+                <Step4 checkList={checkList4} arr={arr} prevSteps={prevSteps} nextSteps={nextSteps} />
             }
             {
                 step === 5 &&
-                <Step5 arr={arr} prevSteps={prevSteps} nextSteps={nextSteps} />
+                <Step5 checkList={checkList5} arr={arr} prevSteps={prevSteps} nextSteps={nextSteps} />
             }
         </div>
     )
