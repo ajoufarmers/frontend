@@ -25,7 +25,7 @@ const Step2 = ({ checkList, arr, prevSteps, nextSteps }) => {
         id.target.checked = true;
         setCheckedValue(id.target.defaultValue);
         setIsChecked(true);
-        arr[1] = id.target.defaultValue;
+        arr[1] = id.target.id;
         console.log(arr);
 
         console.log(id.target.id);

@@ -28,15 +28,12 @@ const Survey = () => {
     const prevSteps = () => {
         setStep(step-1);
     }
-    const checkOne = () => {
-        alert("선택");
-    }
 
     return (
         <div className='wrap'>
             {
                 step === 1 &&
-                <Step1 checkList={checkList1} arr={arr} nextSteps={nextSteps} checkOne={checkOne}/>
+                <Step1 checkList={checkList1} arr={arr} nextSteps={nextSteps} />
             }
             {
                 step === 2 &&

@@ -7,17 +7,17 @@ const Step1 = ({ checkList, arr, nextSteps }) => {
     const [isChecked, setIsChecked] = useState(false);
     const [checkedValue, setCheckedValue] = useState('');
 
-    function checkOnlyOne(id) {
+    function checkOnlyOne(id) { //checkbox 하나만 선택
         console.log('id', id);
         let checkPick = document.getElementsByName('plant');
         Array.prototype.forEach.call(checkPick, function(element) {
-            console.log('el', element);
+            // console.log('el', element);
             element.checked = false;
         });
         id.target.checked = true;
         setCheckedValue(id.target.defaultValue);
         setIsChecked(true);
-        arr[0] = id.target.defaultValue;
+        arr[0] = id.target.id;
         console.log(arr);
 
         // checkList에서 현재 선택된 옵션만 true로 설정
