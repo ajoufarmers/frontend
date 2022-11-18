@@ -62,3 +62,57 @@ input:checked + label {
     background-repeat: no-repeat;
     vertical-align: middle;
 }
+
+.recommend_box {
+    /* background-color: black; */
+    margin: 0 auto;
+    width: 500px;
+
+}
+
+.plant_image {
+    background-color: aliceblue;
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+    justify-content: center;
+    width: 80%;
+}
+
+.plant_info {
+    background-color: aquamarine;
+    margin: 0 auto;
+    text-align: center;
+    font-family: "S-CoreDream-2Light";
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.others_box {
+    background-color: brown;
+    margin: 0 auto;
+    width: 80%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+}
+
+.others {
+    background-color: cadetblue;
+    padding: 10px 20px;
+}
+
+.others_image {
+    background-color: blue;
+    margin: 0 auto;
+    display: block;
+    width: 200px;
+}
+
+.others_info {
+    background-color: yellow;
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+    width: 200px;
+}

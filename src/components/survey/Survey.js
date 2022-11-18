@@ -4,6 +4,7 @@ import Step2 from './Step2';
 import Step3 from './Step3';
 import Step4 from './Step4';
 import Step5 from './Step5';
+import Recommend from './Recommend';
 
 const Survey = () => {
     const [step, setStep] = useState(1);
@@ -50,6 +51,10 @@ const Survey = () => {
             {
                 step === 5 &&
                 <Step5 checkList={checkList5} arr={arr} prevSteps={prevSteps} nextSteps={nextSteps} />
+            }
+            {
+                step === 6 &&
+                <Recommend />
             }
         </div>
     )
