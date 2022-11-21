@@ -1,6 +1,6 @@
 @import '../lib/styles/fonts/font.css';
 
-.linear_gradient {
+/* .linear_gradient {
     margin-top: 9.8rem;
     height: 600px;
     background-image: linear-gradient(
@@ -15,7 +15,7 @@
     url("../images/grass.jpg");
     background-repeat: no-repeat;
     background-size: contain;
-}
+} */
 
 .box_wrapper {
     margin: 0 auto;

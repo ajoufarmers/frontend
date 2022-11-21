@@ -1,6 +1,5 @@
 import './MainPage.css';
 import Header from "../components/common/Header";
-import grass from '../images/border.png';
 import dictionary from '../images/dictionary.png';
 import pencil from '../images/pencil.png';
 import thumbsup from '../images/thumbsup.png';
@@ -61,9 +60,6 @@ const MainPage = () => {
                     </div>
                     <StyledButton>마이페이지</StyledButton>
                 </div>
-            </div>
-            <div className='image'>
-                {/* <img src={grass} alt="grass" style={{width: '100%', marginTop: '-9rem'}} /> */}
             </div>
         </>
     )
