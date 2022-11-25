@@ -47,6 +47,18 @@
     margin-left: 0.5rem;
     margin-right: 0.5rem;
     float: left;
+    position: relative;
+    z-index: 1;
+}
+
+.preview_water {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    position: absolute;
+    margin-top: -1.8rem;
+    margin-left: -0.8rem;
+    z-index: 2;
 }
 
 .preview_image {

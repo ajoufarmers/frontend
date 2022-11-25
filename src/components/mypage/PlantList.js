@@ -1,7 +1,8 @@
 import './PlantList.css';
 import styled from 'styled-components';
 import herb from '../../images/lemontree.jpg';
-import React, { useState } from 'react';
+import waterdrop from '../../images/waterdrop.png';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import TransparentButton from '../common/TransparentButton';
 import GreenButton from '../common/GreenButton';
@@ -37,6 +38,26 @@ const TextArea = styled.textarea`
     font-weight: normal;
 `;
 
+const SelectBox = styled.select`
+	margin: 0;
+	min-width: 0;
+	display: block;
+	width: 50%;
+    height: 2rem;
+	font-size: inherit;
+	line-height: inherit;
+	border: 1px solid;
+	border-radius: 4px;
+	color: inherit;
+	background-color: transparent;
+    font-family: "S-CoreDream-3Light";
+    font-size: 1.1rem;
+    font-weight: normal;
+	&:focus {
+		border-color: gray;
+	}
+`;
+
 const PlantList = () => {
     // 이미지, 키우기시작한 날짜, 최근 물준날짜, 애칭, 학명, 자세히보기 버튼
     const [plantId, setPlantId] = useState('');
@@ -48,7 +69,29 @@ const PlantList = () => {
     const [removeModal, setRemoveModal] = useState(false);
     const [registerModal, setRegisterModal] = useState(false);
     const today = new Date().toISOString().substring(0, 10);
+    const [waterTiming, setWaterTiming] = useState(true);
 
+    const PLANTS = [
+        { value: '콩나물', name: '콩나물' },
+        { value: '감자', name: '감자' },
+        { value: '상추', name: '상추' },
+        { value: '루콜라', name: '루콜라' },
+        { value: '허브', name: '허브' },
+        { value: '콩', name: '콩' },
+    ];
+
+    useEffect(() => {
+        axios
+        .get(`http://3.39.17.18/mypage/watertiming`, { withCredentials: true })
+        .then((response) => {
+            console.log(response);
+            setWaterTiming(response.data);
+        })
+        .catch((error) => {
+            console.log(error.response);
+        })
+    }, [])
+    
     const editButton = () => {
         setEditModal(true);
         document.body.style.cssText = `
@@ -131,6 +174,10 @@ const PlantList = () => {
         setWaterDate(e.target.value);
     }
 
+    const handleSelectChange = (e) => {
+        setName(e.target.value);
+    }
+
     const waterButton = async() => {
         await axios
         .patch(`http://3.39.17.18/mypage/modify/waterdate`, { waterDate: today }, { withCredentials: true })
@@ -157,6 +204,19 @@ const PlantList = () => {
                         <>
                             <div>
                                 <div style={{display: 'flex', marginTop: '1.5rem'}}>
+                                    <div>식물 이름 :</div>&nbsp;
+                                    <SelectBox onChange={handleSelectChange}>
+                                        {PLANTS.map((option) => (
+                                            <option
+                                            key={option.value}
+                                            value={option.value}
+                                            >
+                                            {option.name}
+                                            </option>
+                                        ))}
+                                    </SelectBox>
+                                </div>
+                                <div style={{display: 'flex', marginTop: '1.5rem'}}>
                                     <div>애칭 :</div>&nbsp;
                                     <TextArea onChange={handleNickname} placeholder={'식물 애칭을 입력해주세요'} />
                                 </div>
@@ -172,6 +232,11 @@ const PlantList = () => {
                 />
             </div>
             <div className='preview_box'>
+                {waterTiming ?
+                    <div className='preview_water'>
+                        <img src={waterdrop} alt='waterdrop' />
+                    </div> : null
+                }
                 <div className='preview'>
                     <img className='preview_image' src={herb} alt='herb' />
                     <div className='preview_info'>
