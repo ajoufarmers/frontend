@@ -96,3 +96,13 @@
     margin-bottom: 0.8rem;
     text-align: center;
 }
+
+.profile {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 0.6rem;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+}

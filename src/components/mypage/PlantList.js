@@ -2,7 +2,8 @@ import './PlantList.css';
 import styled from 'styled-components';
 import herb from '../../images/lemontree.jpg';
 import waterdrop from '../../images/waterdrop.png';
-import React, { useState, useEffect } from 'react';
+import profile from '../../images/profile.png';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import axios from 'axios';
 import TransparentButton from '../common/TransparentButton';
 import GreenButton from '../common/GreenButton';
@@ -70,8 +71,11 @@ const PlantList = () => {
     const [registerModal, setRegisterModal] = useState(false);
     const today = new Date().toISOString().substring(0, 10);
     const [waterTiming, setWaterTiming] = useState(true);
+    const fileInput = React.useRef(null);
+    const [imgFile, setImgFile] = useState("");
 
     const PLANTS = [
+        { value: '', name: '종류를 선택하세요'},
         { value: '콩나물', name: '콩나물' },
         { value: '감자', name: '감자' },
         { value: '상추', name: '상추' },
@@ -153,6 +157,7 @@ const PlantList = () => {
 
     const registermodalCancelButton = () => {
         setRegisterModal(false);
+        setImgFile('');
     }
 
     const registermodalConfirmButton = async() => {
@@ -163,7 +168,9 @@ const PlantList = () => {
         })
         .catch((error) => {
             console.log(error.response);
+            alert("다시 시도해주세요");
         })
+        // 빈칸일때 alert
     }
 
     const handleNickname = (e) => {
@@ -192,6 +199,15 @@ const PlantList = () => {
         })
     }
 
+    const imageButtonClick = e => {
+        fileInput.current.click();
+    };
+
+    const handleImage = e => {
+        console.log(e.target.files[0]);
+        setImgFile(URL.createObjectURL(e.target.files[0]));
+    };
+
     return (
         <>
             <div className='title'>마이페이지</div>
@@ -203,6 +219,23 @@ const PlantList = () => {
                     description={
                         <>
                             <div>
+                                <div className='profile'>
+                                    {imgFile ?
+                                        <img className='profile' src={imgFile} alt='profile' />
+                                        : <img className='profile' src={profile} alt='profile' />
+                                    }
+                                </div>
+                                <div style={{display: 'flex', marginTop: '1.5rem', justifyContent: 'center'}}>
+                                    <GreenButton onClick={imageButtonClick}>파일 업로드</GreenButton>
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        name="profile"
+                                        ref={fileInput}
+                                        onChange={handleImage}
+                                        style={{ display: "none" }}
+                                    />
+                                </div>
                                 <div style={{display: 'flex', marginTop: '1.5rem'}}>
                                     <div>식물 이름 :</div>&nbsp;
                                     <SelectBox onChange={handleSelectChange}>
@@ -260,7 +293,15 @@ const PlantList = () => {
                             description={
                                 <>
                                 <img className='preview_image' src={herb} alt="herb" style={{marginBottom: '1rem'}}/>
-                                <GreenButton style={{marginTop: "1rem"}}>사진 수정</GreenButton>
+                                <GreenButton /*onClick={imageButtonClick}*/ style={{marginTop: "1rem"}}>사진 수정</GreenButton>
+                                <input
+                                        type="file"
+                                        accept="image/*"
+                                        name="profile"
+                                        ref={fileInput}
+                                        onChange={handleImage}
+                                        style={{ display: "none" }}
+                                />
                                 <br />
                                 <div style={{display: 'flex', marginTop: '1.5rem'}}>
                                     <div>애칭 :</div>&nbsp;
