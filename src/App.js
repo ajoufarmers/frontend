@@ -6,6 +6,7 @@ import SurveyPage from './pages/SurveyPage';
 import RecommendPage from './pages/RecommendPage';
 import DiaryPage from './pages/DiaryPage';
 import MyPage from './pages/MyPage';
+import WritediaryPage from './pages/WritediaryPage';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Route path='/recommend' element={<RecommendPage />} />
       <Route path='/diary' element={<DiaryPage />} />
       <Route path='/mypage' element={<MyPage />} />
+      <Route path='/write' element={<WritediaryPage />} />
     </Routes>
   );
 }

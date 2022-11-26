@@ -10,6 +10,7 @@ import state2 from '../../images/state2.png';
 import state3 from '../../images/state3.png';
 import state4 from '../../images/state4.png';
 import state5 from '../../images/state5.png';
+import { useNavigate } from 'react-router-dom';
 
 const CalendarBlock = styled.div`
     width: 100%;
@@ -27,6 +28,7 @@ const Calendar = () => {
     const [diarylist, setDiarylist] = useState([]);
     const [state, setState] = useState('');
     const provider_Id = useRef(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios
@@ -56,11 +58,64 @@ const Calendar = () => {
     }
 
     function renderState(info) {
-        if (info.event.plantstate === '0') {
+        if (info.event.title === '0') {
             return (
-                <div className='event'>
-                    <img display='block' margin='0 auto' src={state1} alt='state1' />
-                </div>
+                <>
+                    <div className='event'>
+                        <img display='block' margin='0 auto' src={state1} alt='state1' />
+                    </div>
+                    <div className='event'>
+                        매우 나쁨
+                    </div>
+                </>
+            )
+        }
+        else if (info.event.title === '1') {
+            return (
+                <>
+                    <div className='event'>
+                        <img display='block' margin='0 auto' src={state2} alt='state2' />
+                    </div>
+                    <div className='event'>
+                        나쁨
+                    </div>
+                </>
+            )
+        }
+        else if (info.event.title === '2') {
+            return (
+                <>
+                    <div className='event'>
+                        <img display='block' margin='0 auto' src={state3} alt='state3' />
+                    </div>
+                    <div className='event'>
+                        보통
+                    </div>
+                </>
+            )
+        }
+        else if (info.event.title === '3') {
+            return (
+                <>
+                    <div className='event'>
+                        <img display='block' margin='0 auto' src={state4} alt='state4' />
+                    </div>
+                    <div className='event'>
+                        좋음
+                    </div>
+                </>
+            )
+        }
+        else if (info.event.title === '4') {
+            return (
+                <>
+                    <div className='event'>
+                        <img display='block' margin='0 auto' src={state5} alt='state5' />
+                    </div>
+                    <div className='event'>
+                        매우 좋음
+                    </div>
+                </>
             )
         }
     }
@@ -71,7 +126,7 @@ const Calendar = () => {
             for (var i=0; i<diarylist.length; i++) {
                 diaryarr.push({
                     id: diarylist[i].id,
-                    plantstate: diarylist[i].state,
+                    title: diarylist[i].state,
                     date: diarylist[i].written_date.substr(0, 10),
                     content: diarylist[i].content,
                     color: '#ff000000',
@@ -82,6 +137,10 @@ const Calendar = () => {
         return (
             diaryarr
         )
+    }
+
+    const writeButtonClick = () => {
+        navigate('/write');
     }
 
     return (
@@ -95,11 +154,18 @@ const Calendar = () => {
                 locale="ko"
                 aspectRatio="1.8"
                 dateClick={handleDateClick}
+                eventContent={renderState}
                 eventClick={handleEventClick}
                 events={addDiaryList()}
                 displayEventEnd={true}
+                customButtons={{
+                    myCustomButton: {
+                        text: '일기 작성',
+                        click: writeButtonClick
+                    },
+                }}
                 headerToolbar={{
-                    left: "prevYear,prev",
+                    left: "prevYear,prev myCustomButton",
                     center: "title",
                     right: "today next,nextYear"
                 }}

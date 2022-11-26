@@ -1,0 +1,73 @@
+@import '../../lib/styles/fonts/font.css';
+
+.title {
+    margin: 0 auto;
+    text-align: center;
+    /* background-color: aquamarine; */
+    font-family: "NeoDunggeunmo";
+    font-size: 1.7rem;
+    font-weight: normal;
+}
+
+.options {
+    margin: 0 auto;
+    margin-top: 4rem;
+    width: 80%;
+    /* background-color: aqua; */
+}
+
+.option {
+    /* background-color: black; */
+    margin: 0 auto;
+    justify-content: center;
+    text-align: center;
+    width: 20%;
+}
+
+.option_text {
+    font-family: "S-CoreDream-3Light";
+    font-size: 1.1rem;
+    font-weight: normal;
+    /* background-color: aquamarine; */
+}
+
+.content {
+    margin: 0 auto;
+    margin-top: 8rem;
+    justify-content: center;
+    text-align: center;
+}
+
+.buttons {
+    margin: 0 auto;
+    margin-top: 3rem;
+}
+
+.button {
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+input {
+    display: none;
+}
+
+input + label {
+    /* display: inline-block; */
+    cursor: pointer;
+    margin: 0 auto;
+    width: 20%;
+    background-image: url('../../images/checkbox_gray.png');
+    background-repeat: no-repeat;
+    vertical-align: middle;
+}
+
+input:checked + label {
+    /* display: inline-block; */
+    cursor: pointer;
+    margin: 0 auto;
+    width: 20%;
+    background-image: url('../../images/checkbox_color.png');
+    background-repeat: no-repeat;
+    vertical-align: middle;
+}
