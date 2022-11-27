@@ -3,7 +3,7 @@ import Calendar from "../components/diary/Calendar";
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const DiaryPage = () => {
+const CalendarPage = () => {
     const [pid, setPid] = useState("");
 
     async function GetId () {
@@ -21,4 +21,4 @@ const DiaryPage = () => {
     )
 };
 
-export default DiaryPage;
+export default CalendarPage;

@@ -4,9 +4,10 @@ import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
 import SurveyPage from './pages/SurveyPage';
 import RecommendPage from './pages/RecommendPage';
-import DiaryPage from './pages/DiaryPage';
+import CalendarPage from './pages/CalendarPage';
 import MyPage from './pages/MyPage';
 import WritediaryPage from './pages/WritediaryPage';
+import ReadDiaryPage from './pages/ReaddiaryPage';
 
 function App() {
   return (
@@ -15,9 +16,12 @@ function App() {
       <Route path="/main" element={<MainPage />} />
       <Route path="/survey" element={<SurveyPage />} />
       <Route path='/recommend' element={<RecommendPage />} />
-      <Route path='/diary' element={<DiaryPage />} />
+      <Route path='/diary' element={<CalendarPage />} />
       <Route path='/mypage' element={<MyPage />} />
       <Route path='/write' element={<WritediaryPage />} />
+      <Route path="/read" element={<ReadDiaryPage />} >
+        <Route path=":diaryId" element={<ReadDiaryPage />} />
+      </Route>
     </Routes>
   );
 }
