@@ -1,0 +1,48 @@
+@import '../../lib/styles/fonts/font.css';
+
+.title {
+    margin: 0 auto;
+    text-align: center;
+    /* background-color: aquamarine; */
+    font-family: "NeoDunggeunmo";
+    font-size: 1.7rem;
+    font-weight: normal;
+}
+
+.detail_box {
+    font-family: "S-CoreDream-3Light";
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin: 0 auto;
+    margin-top: 3.5rem;
+    width: 90%;
+    border: 2px dashed #333;
+    padding: 30px 20px 30px 20px;
+    border-radius: 5px;
+    margin-bottom : 50px;
+    display: flex;
+    align-items: center;
+}
+
+.image_box {
+    width: 20%;
+    text-align: center;
+    margin-left: 3rem;
+    float: left;
+    /* background-color: darkkhaki; */
+}
+
+.image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+.detail {
+    width: 70%;
+    font-size: 1.1rem;
+    font-weight: normal;
+    margin-left: 2rem;
+    float: right;
+    /* background-color: yellowgreen; */
+}
