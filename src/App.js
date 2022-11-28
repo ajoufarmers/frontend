@@ -8,6 +8,8 @@ import CalendarPage from './pages/CalendarPage';
 import MyPage from './pages/MyPage';
 import WritediaryPage from './pages/WritediaryPage';
 import ReadDiaryPage from './pages/ReaddiaryPage';
+import DictionaryPage from './pages/DictionaryPage';
+import DetailPage from './pages/DetailPage';
 
 function App() {
   return (
@@ -21,6 +23,10 @@ function App() {
       <Route path='/write' element={<WritediaryPage />} />
       <Route path="/read" element={<ReadDiaryPage />} >
         <Route path=":diaryId" element={<ReadDiaryPage />} />
+      </Route>
+      <Route path="/dictionary" element={<DictionaryPage />} />
+      <Route path='/detail' element={<DetailPage />} >
+        <Route path=':plantId' element={<DetailPage />} />
       </Route>
     </Routes>
   );

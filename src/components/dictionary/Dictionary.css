@@ -1,0 +1,103 @@
+@import '../../lib/styles/fonts/font.css';
+
+.title {
+    margin: 0 auto;
+    text-align: center;
+    /* background-color: aquamarine; */
+    font-family: "NeoDunggeunmo";
+    font-size: 1.7rem;
+    font-weight: normal;
+    margin-bottom: 3rem;
+}
+
+.plant_card {
+    margin: 0 auto;
+    width: 90%;
+    border: 2px dashed #333;
+    justify-content: center;
+    padding: 20px 30px 20px 30px;
+    border-radius: 5px;
+    /* margin-bottom : 30px; */
+    margin-top: 3rem;
+    cursor: pointer;
+    position: relative;
+    display: block;
+}
+
+.image {
+    background-color: gray;
+    width: 100px;
+    height: 100px;
+}
+
+.plant_image {
+    background-color: gold;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    float: left;
+}
+
+.plant_name {
+    background-color: chartreuse;
+    font-family: "S-CoreDream-3Light";
+    font-size: 1.25rem;
+    font-weight: bold;
+    width: 90%;
+    float: right;
+    margin-top: -100px;
+}
+
+.plant_information {
+    background-color: green;
+    font-family: "S-CoreDream-3Light";
+    font-size: 1.1rem;
+    font-weight: normal;
+    width: 90%;
+    float: right;
+    margin-top: -65px;
+}
+
+.preview_box {
+    width: 95%;
+    background-color: aqua;
+    justify-content: center;
+    position: relative;
+    align-items: center;
+    text-align: center;
+    margin-left: 3rem;
+}
+
+.preview {
+    /* background-color: cadetblue; */
+    border: 2px dashed #333;
+    border-radius: 15px;
+    padding: 15px 10px;
+    margin-bottom: 1.5rem;
+    /* float: center; */
+    position: relative;
+    cursor: pointer;
+}
+
+.preview_image {
+    /* background-color: blue; */
+    margin: 0 auto;
+    margin-top: 0.5rem;
+    display: block;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.preview_name {
+    /* background-color: beige;
+    border-radius: 10px; */
+    margin: 0 auto;
+    margin-top: 1rem;
+    display: block;
+    text-align: center;
+    width: 200px;
+    font-family: "S-CoreDream-3Light";
+    font-size: 1rem;
+    font-weight: bold;
+}
