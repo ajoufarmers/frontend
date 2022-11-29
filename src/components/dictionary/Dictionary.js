@@ -1,8 +1,20 @@
 import './Dictionary.css';
+import styled from 'styled-components';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import GreenButton from '../common/GreenButton';
+import AskModal from '../common/AskModal.js';
 import lemon from '../../images/lemontree.jpg';
+
+const TextArea = styled.textarea`
+    width: 70%;
+    height: 2rem;
+    resize: none;
+    font-family: "S-CoreDream-3Light";
+    font-size: 1.1rem;
+    font-weight: normal;
+`;
 
 const Dictonary = () => {
     const [plantList, setPlantList] = useState([]);
@@ -45,12 +57,19 @@ const Dictonary = () => {
         )
     }
 
+    const searchButtonClick = () => {
+        navigate('/search');
+    }
+
     return (
         <>
             <div className="title">식물 도감</div>
             {/* <div className="preview_box">
                 {viewPlantList()}
             </div> */}
+            <div className="search_button">
+                <GreenButton onClick={searchButtonClick}>식물 검색</GreenButton>
+            </div>
             <div className='preview_box'>
             <div className='preview' onClick={goDetail}>
                 <img className='preview_image' src={lemon} alt='lemon' />

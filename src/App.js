@@ -10,6 +10,7 @@ import WritediaryPage from './pages/WritediaryPage';
 import ReadDiaryPage from './pages/ReaddiaryPage';
 import DictionaryPage from './pages/DictionaryPage';
 import DetailPage from './pages/DetailPage';
+import SearchPage from './pages/SearchPage';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
       <Route path='/detail' element={<DetailPage />} >
         <Route path=':plantId' element={<DetailPage />} />
       </Route>
+      <Route path='/search' element={<SearchPage />} />
     </Routes>
   );
 }
