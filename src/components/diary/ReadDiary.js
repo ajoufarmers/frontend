@@ -113,7 +113,7 @@ const ReadDiary = () => {
 
     const onEditContentConfirm = async() => {
         await axios
-        .patch('http://3.39.17.18/diaries/state', { content: content }, { withCredentials: true })
+        .patch('http://3.39.17.18/diaries/content', { content: content }, { withCredentials: true })
         .then((response) => {
             console.log(response);
             setEditStateModal(false);
