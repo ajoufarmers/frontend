@@ -46,3 +46,8 @@
     float: right;
     /* background-color: yellowgreen; */
 }
+
+.button {
+    float: right;
+    margin-right: 6rem;
+}

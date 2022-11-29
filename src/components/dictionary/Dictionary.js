@@ -7,51 +7,52 @@ import GreenButton from '../common/GreenButton';
 import AskModal from '../common/AskModal.js';
 import lemon from '../../images/lemontree.jpg';
 
-const TextArea = styled.textarea`
-    width: 70%;
-    height: 2rem;
-    resize: none;
-    font-family: "S-CoreDream-3Light";
-    font-size: 1.1rem;
-    font-weight: normal;
-`;
-
 const Dictonary = () => {
     const [plantList, setPlantList] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
+        // axios
+        // .get('/checklogin', { withCredentials: true })
+        // .then((response) => {
+        //     axios
+        //     .get('http://localhost:8080/plant/list', { withCredentials: true })
+        //     .then((response) => {
+        //         setPlantList(response.data);
+        //     })
+        //     .catch((error) => {
+        //         console.log(error.response);
+        //     })
+        // })
         axios
-        .get('/checklogin', { withCredentials: true })
+        .get('/plant/list', { withCredentials: true })
         .then((response) => {
-            axios
-            .get('http://localhost:8080', { withCredentials: true })
-            .then((response) => {
-                setPlantList(response.data);
-            })
-            .catch((error) => {
-                console.log(error.response);
-            })
+            console.log(response);
+            setPlantList(response.data);
+            console.log(plantList[0].name);
+        })
+        .catch((error) => {
+            console.log(error.response);
         })
     }, []);
 
     const goDetail = (id) => {
-        navigate(`/detail:${id}`);
+        navigate(`/detail/${id}`);
     }
 
     function viewPlantList () {
-        const items = plantList.map((element) => {
+        const items = plantList.map((element) =>
             <>
                 <div className='preview_box'>
                     <div className='preview' onClick={()=>goDetail(element.id)}>
-                        <div className='preview_image' key={element.img}>
-                            {/* <img src={img} alt='img' /> */}
+                        <div className='preview_image' key={element.imgUri}>
+                            <img src={element.imgUri} alt='img' />
                         </div>
                         <div className='preview_name' key={element.name}>{element.name}</div>
                     </div>
                 </div>
             </>
-        });
+        );
         return (
             <div>{items}</div>
         )
@@ -64,57 +65,12 @@ const Dictonary = () => {
     return (
         <>
             <div className="title">식물 도감</div>
-            {/* <div className="preview_box">
-                {viewPlantList()}
-            </div> */}
             <div className="search_button">
                 <GreenButton onClick={searchButtonClick}>식물 검색</GreenButton>
             </div>
-            <div className='preview_box'>
-            <div className='preview' onClick={goDetail}>
-                <img className='preview_image' src={lemon} alt='lemon' />
-                <div className='preview_name'>
-                    콩나물
-                </div>
+            <div className="preview_box">
+                {viewPlantList()}
             </div>
-            <div className='preview'>
-                <img className='preview_image' src={lemon} alt='lemon' />
-                <div className='preview_name'>
-                    콩나물
-                </div>
-            </div>
-            <div className='preview'>
-                <img className='preview_image' src={lemon} alt='lemon' />
-                <div className='preview_name'>
-                    콩나물
-                </div>
-            </div>
-            <div className='preview'>
-                <img className='preview_image' src={lemon} alt='lemon' />
-                <div className='preview_name'>
-                    콩나물
-                </div>
-            </div>
-            <div className='preview'>
-                <img className='preview_image' src={lemon} alt='lemon' />
-                <div className='preview_name'>
-                    콩나물
-                </div>
-            </div>
-            <div className='preview'>
-                <img className='preview_image' src={lemon} alt='lemon' />
-                <div className='preview_name'>
-                    콩나물
-                </div>
-            </div>
-            <div className='preview'>
-                <img className='preview_image' src={lemon} alt='lemon' />
-                <div className='preview_name'>
-                    콩나물
-                </div>
-            </div>
-            </div>
-
         </>
     )
 };

@@ -48,6 +48,17 @@ const Calendar = () => {
             })
     }, [])
 
+    useEffect(() => {
+        axios
+        .get(`/diary/list/1`, { withCredentials: true })
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((error) => {
+            console.log(error.response);
+        })
+    }, [])
+
     const handleDateClick = (arg) => {
         console.log(arg);
         console.log(arg.dateStr);

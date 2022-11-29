@@ -1,8 +1,16 @@
 import axios from 'axios';
 
-const client = axios.create();
+// const client = axios.create();
 
-client.defaults.baseURL = 'http://3.39.17.18'
+// client.defaults.baseURL = 'http://localhost:8080'
+
+const client = axios.create({
+    baseURL: 'http://localhost:8080',
+    headers: {
+        "Content-Type" : 'application/json',
+    },
+});
+
 //https://3.39.17.18
 
 /*

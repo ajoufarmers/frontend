@@ -9,6 +9,7 @@ import TransparentButton from '../common/TransparentButton';
 import GreenButton from '../common/GreenButton';
 import NavyButton from '../common/NavyButton';
 import AskModal from '../common/AskModal';
+import client from '../../lib/api/client';
 
 const StyledTransparentButton = styled(TransparentButton)`
     font-family: "S-CoreDream-2Light";
@@ -70,7 +71,7 @@ const PlantList = () => {
     const [removeModal, setRemoveModal] = useState(false);
     const [registerModal, setRegisterModal] = useState(false);
     const today = new Date().toISOString().substring(0, 10);
-    const [waterTiming, setWaterTiming] = useState(true);
+    const [waterTiming, setWaterTiming] = useState([]);
     const fileInput = React.useRef(null);
     const [imgFile, setImgFile] = useState("");
 
@@ -86,7 +87,7 @@ const PlantList = () => {
 
     useEffect(() => {
         axios
-        .get(`http://3.39.17.18/mypage/watertiming`, { withCredentials: true })
+        .get(`/mypage/watertiming`, { withCredentials: true })
         .then((response) => {
             console.log(response);
             setWaterTiming(response.data);
@@ -127,9 +128,9 @@ const PlantList = () => {
         setEditModal(false);
     }
 
-    const editmodalConfirmButton = async() => {
-        await axios
-        .patch(`http://3.39.17.18/mypage/modify/nickname`, { nickname: nickname }, { withCredentials: true })
+    const editmodalConfirmButton = () => {
+        axios
+        .put('/mypage/modify/nickname', { nickname: nickname }, { withCredentials: true })
         .then((response) => {
             console.log(response);
             setNickname(nickname);

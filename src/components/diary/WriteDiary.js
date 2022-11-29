@@ -36,7 +36,7 @@ const WriteDiary = () => {
             element.checked = false;
         });
         id.target.checked = true;
-        setCheckedValue(id.target.defaultValue);
+        setCheckedValue(id.target.id);
         setIsChecked(true);
     }
 
@@ -67,10 +67,9 @@ const WriteDiary = () => {
                 {
                     a === 4
                     ? ( await axios
-                        .post('http://3.39.17.18/diary', { date: today, state: checkedValue, content: content }, { withCredentials: true })
+                        .post('/diary', { memberId: '1', date: today, state: checkedValue, content: content }, { withCredentials: true })
                         .then((response) => {
                             console.log(response);
-                            console.log(checkedValue);
                             alert('일기 등록 완료');
                             navigate('/diary');
                         })

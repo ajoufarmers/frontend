@@ -1,23 +1,79 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import TransparentButton from '../common/TransparentButton';
 import './Detail.css';
 import lemon from '../../images/lemontree.jpg';
 
 const Detail = () => {
+    const [id, setId] = useState('');
+    const [name, setName] = useState('');
+    const [imgUri, setImgUri] = useState('');
+    const [des, setDes] = useState('');
+    const [temp, setTemp] = useState('');
+    const [hum, setHum] = useState('');
+    const [water, setWater] = useState('');
+    const [nutrition, setNutrition] = useState('');
+    const [harvest, setHarvest] = useState('');
+    const [mange, setMange] = useState('');
+    const location = useLocation();
+    let path = location.pathname;
+    let plantId = path.substring(8);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        // axios
+        // .get('/checklogin', { withCredentials: true })
+        // .then(response => {
+            // provider_Id.current = response.data[0].providerId;
+            console.log(plantId);
+            axios
+            .get(`/plant/id?id=${plantId}`, { withCredentials: true })
+            .then((response) => {
+                setId(response.data.id);
+                setName(response.data.name);
+                setImgUri(response.data.imgUri);
+                setDes(response.data.description);
+                setTemp(response.data.temperature);
+                setHum(response.data.humidity);
+                setWater(response.data.waterInfo);
+                setNutrition(response.data.nutrition);
+                setHarvest(response.data.harvestTime);
+                setMange(response.data.mangeInfo);
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error.response);
+            })
+            // })
+    }, [id])
+
+    const onClick = () => {
+        navigate(-1);
+    }
+
+
     return (
         <>
             <div className="title">
                 식물 세부 정보
             </div>
+            <div>
+                <TransparentButton className='button' onClick={onClick}>도감으로</TransparentButton>
+            </div>
             <div className="detail_box">
                 <div className="image_box">
-                    <img className='image' src={lemon} alt="lemon" />
-                    <div>콩나물</div>
+                    <img className='image' src={imgUri} alt="lemon" />
+                    <div>{name}</div>
                 </div>
                 <div className="detail">
-                    {'소개 :'}&nbsp;{'콩나물은 콩이에요'}<br />
-                    {'키우기 난이도 :'}&nbsp;{'하'}<br />
+                    {'소개 :'}&nbsp;{des}<br />
+                    {'온도 :'}&nbsp;{temp}<br />
+                    {'습도 :'}&nbsp;{hum}<br />
+                    {'물 :'}&nbsp;{water}<br />
+                    {'영양성분 :'}&nbsp;{nutrition}<br />
+                    {'수확시기 :'}&nbsp;{harvest}<br />
+                    {'장소 :'}&nbsp;{mange}<br />
                 </div>
             </div>
         </>
