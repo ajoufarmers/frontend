@@ -62,11 +62,12 @@ const SelectBox = styled.select`
 
 const PlantList = () => {
     // 이미지, 키우기시작한 날짜, 최근 물준날짜, 애칭, 학명, 자세히보기 버튼
+    const [memberId, setMemberId] = useState(1);
     const [plantId, setPlantId] = useState('');
-    const [date, setDate] = useState('2022-11-12');
-    const [waterDate, setWaterDate] = useState('2022-11-12');
-    const [nickname, setNickname] = useState('모다피');
-    const [name, setName] = useState('콩나물');
+    const [date, setDate] = useState('');
+    const [waterDate, setWaterDate] = useState('');
+    const [nickname, setNickname] = useState('');
+    const [name, setName] = useState('');
     const [editModal, setEditModal] = useState(false);
     const [removeModal, setRemoveModal] = useState(false);
     const [registerModal, setRegisterModal] = useState(false);
@@ -74,6 +75,7 @@ const PlantList = () => {
     const [waterTiming, setWaterTiming] = useState([]);
     const fileInput = React.useRef(null);
     const [imgFile, setImgFile] = useState("");
+    const [plantList, setPlantList] = useState([]);
 
     const PLANTS = [
         { value: '', name: '종류를 선택하세요'},
@@ -87,9 +89,21 @@ const PlantList = () => {
 
     useEffect(() => {
         axios
-        .get(`/mypage/watertiming`, { withCredentials: true })
+        .get(`/mypage/list?memberId=${memberId}`, { withCredentials: true })
         .then((response) => {
-            console.log(response);
+            console.log(response.data);
+            setPlantList(response.data);
+        })
+        .catch((error) => {
+            console.log(error.response);
+        })
+    }, [memberId])
+    
+    useEffect(() => {
+        axios
+        .get(`/mypage/watertiming?memberId=${memberId}`, { withCredentials: true })
+        .then((response) => {
+            console.log(response.data);
             setWaterTiming(response.data);
         })
         .catch((error) => {
@@ -208,6 +222,20 @@ const PlantList = () => {
         console.log(e.target.files[0]);
         setImgFile(URL.createObjectURL(e.target.files[0]));
     };
+
+    function viewPlantList () {
+        const items = plantList.map((element) =>
+            <>
+                <div className='preview_box'>
+                    {element.waterTiming ?
+                        <div className='preview_water'>
+                            <img src={waterdrop} alt='waterdrop' />
+                        </div> : null
+                    }
+                </div>
+            </>
+        )
+    }
 
     return (
         <>

@@ -23,7 +23,6 @@
     border: 2px dashed #333;
     padding: 30px 20px 30px 20px;
     border-radius: 5px;
-    margin-bottom : 50px;
 }
 
 .date {
@@ -36,9 +35,15 @@
 .text {
     font-weight: bold;
     margin-top: 2rem;
+    width: 74%;
+    float: right;
+    margin-right: 2rem;
     /* background-color: darkcyan; */
 }
 
-.image {
+.state_image {
     text-align: center;
+    width: 20%;
+    margin-bottom: 1rem;
+    /* background-color: darkolivegreen; */
 }

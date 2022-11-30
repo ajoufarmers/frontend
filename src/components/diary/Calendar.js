@@ -25,6 +25,7 @@ const CalendarBlock = styled.div`
 `;
 
 const Calendar = () => {
+    const [memberId, setMemberId] = useState(1);
     const [diarylist, setDiarylist] = useState([]);
     const [state, setState] = useState('');
     const provider_Id = useRef(null);
@@ -50,9 +51,11 @@ const Calendar = () => {
 
     useEffect(() => {
         axios
-        .get(`/diary/list/1`, { withCredentials: true })
+        .get(`/diary/list/${memberId}`, { withCredentials: true })
         .then((response) => {
             console.log(response);
+            setDiarylist(response.data);
+            console.log(diarylist);
         })
         .catch((error) => {
             console.log(error.response);
@@ -65,7 +68,7 @@ const Calendar = () => {
     }
 
     const handleEventClick = (info) => {
-        window.location.href = `http://localhost:3000/diaryread/:${info.event.id}`;
+        window.location.href = `http://localhost:3000/read/${info.event.id}`;
     }
 
     function renderState(info) {
@@ -138,7 +141,8 @@ const Calendar = () => {
                 diaryarr.push({
                     id: diarylist[i].id,
                     title: diarylist[i].state,
-                    date: diarylist[i].written_date.substr(0, 10),
+                    // date: diarylist[i].written_date.substr(0, 10),
+                    date: diarylist[i].date,
                     content: diarylist[i].content,
                     color: '#ff000000',
                     textColor: '#000000'

@@ -60,6 +60,7 @@ const STATE = [
 ];
 
 const ReadDiary = () => {
+    const [memberId, setMemberId] = useState(1);
     const [diarylist, setDiarylist] = useState([]);
     const [date, setDate] = useState('');
     const [content, setContent] = useState('');
@@ -74,6 +75,7 @@ const ReadDiary = () => {
     let info = diarylist.map(diary => (diary.id));
     let path = location.pathname;
     let diaryid = path.substring(7);
+    let theState = 0;
 
     const calendarButtonClick = () => {
         navigate('/diary');
@@ -162,28 +164,40 @@ const ReadDiary = () => {
             })
     }, [])
 
+    useEffect(() => {
+        axios
+        .get(`/diary/list/${memberId}`, { withCredentials: true })
+        .then((response) => {
+            console.log(response);
+            setDiarylist(response.data);
+        })
+        .catch((error) => {
+            console.log(error.response);
+        })
+    }, [])
+
     function addDiaryList() {
         let diaryarr = [];
         for (var i=0; i<diarylist.length; i++) {
             diaryarr.push({
                 id: diarylist[i].id,
                 title: diarylist[i].state,
-                date: diarylist[i].written_date.substr(0, 10),
+                date: diarylist[i].date,
                 content: diarylist[i].content,
                 color: '#ff000000',
                 textColor: '#000000'
             })
         }
+        // console.log(diaryarr[0].state);
+        // console.log(diarylist[0].state);
         return diaryarr;
     }
 
     function theDiaryDate() {
         addDiaryList();
         for (var j=0; j<diarylist.length; j++) {
-            if(path === '/read/:' + info[j]) {
-                // console.log('/read/:' + info[j]);
-                setDate(diarylist[j.written_date.substr(0,10)]);
-                return setDate;
+            if(path === '/read/' + info[j]) {
+                return diarylist[j].date;
             };
         };
     }
@@ -192,9 +206,8 @@ const ReadDiary = () => {
         addDiaryList();
         let info = diarylist.map(diary => (diary.id));
         for (var j=0; j<diarylist.length; j++) {
-            if(path === '/read/:' + info[j]) {
-                setContent(diarylist[j].content);
-                return setContent;
+            if(path === '/read/' + info[j]) {
+                return diarylist[j].content;
             };
         };
     }
@@ -202,9 +215,8 @@ const ReadDiary = () => {
     function theDiaryState() {
         addDiaryList();
         for (var j=0; j<diarylist.length; j++) {
-            if(path === '/read/:' + info[j]) {
-                setState(diarylist[j].state);
-                if(state === '0') {
+            if(path === '/read/' + info[j]) {
+                if(diarylist[j].state === 0) {
                     return (
                         <>
                             <img src={state1} alt='state1' />
@@ -212,7 +224,7 @@ const ReadDiary = () => {
                         </>
                     )
                 }
-                else if(state === '1') {
+                else if(diarylist[j].state === 1) {
                     return (
                         <>
                             <img src={state2} alt='state2' />
@@ -220,15 +232,15 @@ const ReadDiary = () => {
                         </>
                     )
                 }
-                else if(state === '2') {
+                else if(diarylist[j].state === 2) {
                     return (
-                        <>
+                        <>  
                             <img src={state3} alt='state3' />
                             <div>보통</div>
                         </>
                     )
                 }
-                else if(state === '3') {
+                else if(diarylist[j].state === 3) {
                     return (
                         <>
                             <img src={state4} alt='state4' />
@@ -236,7 +248,7 @@ const ReadDiary = () => {
                         </>
                     )
                 }
-                else if(state === '4') {
+                else if(diarylist[j].state === 4) {
                     return (
                         <>
                             <img src={state5} alt='state5' />
@@ -309,13 +321,13 @@ const ReadDiary = () => {
             </div>
             <div className='diary_container'>
                 <div className='date'>
-                    {'2022-11-11'}
+                    {theDiaryDate()}
                 </div>
                 <div className='text'>
-                    오늘은 식물 상태가 좋다.
+                    {theDiaryContent()}
                 </div>
-                <div className='image'>
-                    <img src={state2} alt='state2' />
+                <div className='state_image'>
+                    {theDiaryState()}
                 </div>
             </div>
         </>
