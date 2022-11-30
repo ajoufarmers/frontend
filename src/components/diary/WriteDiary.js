@@ -22,11 +22,22 @@ const TextArea = styled.textarea`
 `;
 
 const WriteDiary = () => {
+    const [memberId, setMemberId] = useState(1);
     const [isChecked, setIsChecked] = useState(false);
-    const [checkedValue, setCheckedValue] = useState('');
+    const [checkedValue, setCheckedValue] = useState();
     const [content, setContent] = useState('');
-    const today = new Date().toISOString().substring(0, 10);
+    //const today = new Date().toISOString().substring(0, 10);
+    const date = new Date();
+    const [today, setToday] = useState('');
     const navigate = useNavigate();
+
+    useEffect(() => {
+        // today.current = new Date().toISOString().substring(0, 10);
+        let offset = date.getTimezoneOffset() * 60000; //ms단위라 60000곱해줌
+        let dateOffset = new Date(date.getTime() - offset);
+        setToday(dateOffset.toISOString().substring(0, 10));
+        console.log(today);
+    }, [today])
 
     function checkOnlyOne(id) { //checkbox 하나만 선택
         console.log('id', id);
@@ -36,11 +47,12 @@ const WriteDiary = () => {
             element.checked = false;
         });
         id.target.checked = true;
-        setCheckedValue(id.target.id);
+        setCheckedValue(Number(id.target.id));
         setIsChecked(true);
+        console.log(today);
     }
 
-    const onSubmit = async() => {
+    const onSubmit = () => {
         let a = 0;
         if (isChecked === false && content === '') {
             a = 1;
@@ -66,8 +78,8 @@ const WriteDiary = () => {
                 {a === 3 ? alert("선택지를 골라주세요") : null}
                 {
                     a === 4
-                    ? ( await axios
-                        .post('/diary', { memberId: '1', date: today, state: checkedValue, content: content }, { withCredentials: true })
+                    ? ( axios
+                        .post('/diary', { memberId: memberId, date: today, state: checkedValue, content: content }, { withCredentials: true })
                         .then((response) => {
                             console.log(response);
                             alert('일기 등록 완료');
@@ -156,9 +168,9 @@ const WriteDiary = () => {
             <div className='content'>
                 <TextArea onChange={handleTextarea} placeholder='일기 내용을 입력하세요' />
             </div>
-            <div className='buttons'>
-                <NavyButton className='button' onClick={onCancel}>취소</NavyButton>
+            <div className='post_buttons'>
                 <NavyButton className='button' onClick={onSubmit}>일기 등록</NavyButton>
+                <NavyButton className='button' onClick={onCancel}>취소</NavyButton>
             </div>
         </>
     );
