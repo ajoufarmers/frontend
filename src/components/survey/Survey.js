@@ -54,7 +54,7 @@ const Survey = () => {
             }
             {
                 step === 6 &&
-                <Recommend />
+                <Recommend prevSteps={prevSteps}/>
             }
         </div>
     )

@@ -10,6 +10,7 @@ import GreenButton from '../common/GreenButton';
 import NavyButton from '../common/NavyButton';
 import AskModal from '../common/AskModal';
 import client from '../../lib/api/client';
+import { useNavigate } from 'react-router-dom';
 
 const StyledTransparentButton = styled(TransparentButton)`
     font-family: "S-CoreDream-2Light";
@@ -63,11 +64,15 @@ const SelectBox = styled.select`
 const PlantList = () => {
     // 이미지, 키우기시작한 날짜, 최근 물준날짜, 애칭, 학명, 자세히보기 버튼
     const [memberId, setMemberId] = useState(1);
-    const [plantId, setPlantId] = useState('');
+    const [plantId, setPlantId] = useState(20);
     const [date, setDate] = useState('');
     const [waterDate, setWaterDate] = useState('');
     const [nickname, setNickname] = useState('');
     const [name, setName] = useState('');
+    const [newDate, setNewDate] = useState('');
+    const [newWaterDate, setNewWaterDate] = useState('');
+    const [newNickname, setNewNickname] = useState('');
+    const [newName, setNewName] = useState('');
     const [editModal, setEditModal] = useState(false);
     const [removeModal, setRemoveModal] = useState(false);
     const [registerModal, setRegisterModal] = useState(false);
@@ -76,6 +81,7 @@ const PlantList = () => {
     const fileInput = React.useRef(null);
     const [imgFile, setImgFile] = useState("");
     const [plantList, setPlantList] = useState([]);
+    const navigate = useNavigate();
 
     const PLANTS = [
         { value: '', name: '종류를 선택하세요'},
@@ -177,9 +183,10 @@ const PlantList = () => {
 
     const registermodalConfirmButton = async() => {
         await axios
-        .post(`http://3.39.17.18/mypage/new`, { withCredentials: true })
+        .post(`/mypage/new?memberId=${memberId}&plantId=${plantId}&imgUri=${imgFile}&waterDate=${newWaterDate}&nickname=${newNickname}`, { memberId: memberId, plantId: plantId, imgUri: imgFile, waterDate: newWaterDate, nickname: newNickname }, { withCredentials: true })
         .then((response) => {
             console.log(response);
+            window.location.reload();
         })
         .catch((error) => {
             console.log(error.response);
@@ -189,15 +196,15 @@ const PlantList = () => {
     }
 
     const handleNickname = (e) => {
-        setNickname(e.target.value);
+        setNewNickname(e.target.value);
     }
 
     const handleWaterdate = (e) => {
-        setWaterDate(e.target.value);
+        setNewWaterDate(e.target.value);
     }
 
     const handleSelectChange = (e) => {
-        setName(e.target.value);
+        setNewName(e.target.value);
     }
 
     const waterButton = async() => {

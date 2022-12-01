@@ -46,7 +46,7 @@ const Step5 = ({ checkList, arr, prevSteps, nextSteps }) => {
         id.target.checked = true;
         setCheckedValue(id.target.defaultValue);
         setIsChecked(true);
-        arr[4] = id.target.id;
+        arr[4] = Number(id.target.id);
         console.log(arr);
 
         console.log(id.target.id);
@@ -66,8 +66,18 @@ const Step5 = ({ checkList, arr, prevSteps, nextSteps }) => {
                 {
                     isChecked === false
                     ? alert("선택지를 골라주세요!")
-                    : null
-                }
+                    :
+                    axios
+                    // .get('/recommend/list', { params: {category: arr[0], size: arr[1], difficulty: arr[3], brightness: arr[4], waterRate: arr[5] }}, { withCredentials: true })
+                    .post('/recommend/list', {category: arr[0], size: arr[1], difficulty: arr[3], brightness: arr[4], waterRate: arr[5] }, { withCredentials: true })
+                    .then((response) => {
+                        console.log(response);
+
+                    })
+                    .catch((error) => {
+                        console.log(error.response);
+                    })
+                }  
             </div>
         )
     }
@@ -119,7 +129,7 @@ const Step5 = ({ checkList, arr, prevSteps, nextSteps }) => {
             <label htmlFor='2'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{'자주(주 2회 이상'}</label> <br />
             </div>
             <div className='buttons'>
-                {
+                {/* {
                     isChecked === true
                     ?
                         <div>
@@ -130,7 +140,11 @@ const Step5 = ({ checkList, arr, prevSteps, nextSteps }) => {
                         <StyledButton onClick={prevSteps}>이전</StyledButton>
                         <StyledButton onClick={checkOne}>완료</StyledButton>
                     </div>
-                }
+                } */}
+                <div>
+                    <StyledButton onClick={prevSteps}>이전</StyledButton>
+                    <StyledButton onClick={checkOne}>완료</StyledButton>
+                </div>
             </div>
         </>
     )

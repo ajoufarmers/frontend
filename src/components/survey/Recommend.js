@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Step.css';
 import NavyButton from '../common/NavyButton';
+import TransparentButton from '../common/TransparentButton';
 import styled from 'styled-components';
 import herb from '../../images/herb.jpg';
 
-const Recommend = () => {
+const Recommend = ({ prevSteps }) => {
     const [otherplants, setOtherplants] = useState(false);
 
     function otherButtonClick() {
@@ -19,6 +20,7 @@ const Recommend = () => {
                 <div className='plant_info'>콩나물</div>
                 <div className='buttons'>
                     <NavyButton onClick={otherButtonClick}>다른 추천 식물</NavyButton>
+                    <TransparentButton onClick={prevSteps}>이전으로</TransparentButton>
                 </div>
             </div>
             <div className='others_box'>

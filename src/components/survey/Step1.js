@@ -17,7 +17,7 @@ const Step1 = ({ checkList, arr, nextSteps }) => {
         id.target.checked = true;
         setCheckedValue(id.target.defaultValue);
         setIsChecked(true);
-        arr[0] = id.target.id;
+        arr[0] = Number(id.target.id);
         console.log(arr);
 
         // checkList에서 현재 선택된 옵션만 true로 설정
