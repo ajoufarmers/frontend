@@ -74,7 +74,7 @@ const ReadDiary = () => {
     const [changedContent, setChangedContent] = useState('');
     let info = diarylist.map(diary => (diary.id));
     let path = location.pathname;
-    let diaryid = path.substring(7);
+    let diaryid = path.substring(6);
     let theState = 0;
 
     const calendarButtonClick = () => {
@@ -92,7 +92,7 @@ const ReadDiary = () => {
 
     const onEditStateConfirm = async() => {
         await axios
-        .patch('http://3.39.17.18/diaries/state', { state: state }, { withCredentials: true })
+        .patch(`/diary/${diaryid}`, { state: state }, { withCredentials: true })
         .then((response) => {
             console.log(response);
             setEditStateModal(false);
@@ -137,7 +137,7 @@ const ReadDiary = () => {
 
     const onRemoveConfirm = async() => {
         await axios
-        .delete(`http://3.39.17.18/diaries/details/${diaryid}`, { withCredentials: true })
+        .delete(`/diary/${diaryid}`, { withCredentials: true })
         .then((response) => {
             console.log(response);
             navigate('/diary');
