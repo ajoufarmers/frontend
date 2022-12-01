@@ -3,13 +3,12 @@ import styled from 'styled-components';
 import herb from '../../images/lemontree.jpg';
 import waterdrop from '../../images/waterdrop.png';
 import profile from '../../images/profile.png';
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import TransparentButton from '../common/TransparentButton';
 import GreenButton from '../common/GreenButton';
 import NavyButton from '../common/NavyButton';
-import AskModal from '../common/AskModal';
-import client from '../../lib/api/client';
+import AskModal from '../common/AskModal.js';
 import { useNavigate } from 'react-router-dom';
 
 const StyledTransparentButton = styled(TransparentButton)`
@@ -64,16 +63,18 @@ const SelectBox = styled.select`
 const PlantList = () => {
     // 이미지, 키우기시작한 날짜, 최근 물준날짜, 애칭, 학명, 자세히보기 버튼
     const [memberId, setMemberId] = useState(1);
-    const [plantId, setPlantId] = useState(20);
+    const [id, setId] = useState('');
+    const [plantId, setPlantId] = useState();
     const [date, setDate] = useState('');
-    const [waterDate, setWaterDate] = useState('');
-    const [nickname, setNickname] = useState('');
+    const [waterDate, setWaterDate] = useState([]);
+    const [nickname, setNickname] = useState([]);
     const [name, setName] = useState('');
     const [newDate, setNewDate] = useState('');
     const [newWaterDate, setNewWaterDate] = useState('');
     const [newNickname, setNewNickname] = useState('');
     const [newName, setNewName] = useState('');
-    const [editModal, setEditModal] = useState(false);
+    const [nicknameModal, setNicknameModal] = useState(false);
+    const [waterdatetModal, setWaterdateModal] = useState(false);
     const [removeModal, setRemoveModal] = useState(false);
     const [registerModal, setRegisterModal] = useState(false);
     const today = new Date().toISOString().substring(0, 10);
@@ -82,6 +83,7 @@ const PlantList = () => {
     const [imgFile, setImgFile] = useState("");
     const [plantList, setPlantList] = useState([]);
     const navigate = useNavigate();
+    let nicknamearr = [];
 
     const PLANTS = [
         { value: '', name: '종류를 선택하세요'},
@@ -94,16 +96,54 @@ const PlantList = () => {
     ];
 
     useEffect(() => {
+        getPlantId();
+        getPlantNickname();
+        getPlantWaterdate();
         axios
         .get(`/mypage/list?memberId=${memberId}`, { withCredentials: true })
         .then((response) => {
             console.log(response.data);
             setPlantList(response.data);
+            console.log(plantList);
         })
         .catch((error) => {
             console.log(error.response);
         })
     }, [memberId])
+
+    function getPlantId () {
+        let plantIdarr = [];
+        for (var i=0; i<plantList.length; i++) {
+            plantIdarr.push({
+                id: plantList[i].plantId
+            })
+        }
+        console.log(plantIdarr);
+        return plantIdarr;
+    }
+
+    function getPlantNickname () {
+        for (var i=0; i<plantList.length; i++) {
+            nicknamearr.push({
+                id: plantList[i].id,
+                nickname: plantList[i].nickname
+            })
+        }
+        console.log(nicknamearr);
+        return nicknamearr;
+    }
+
+    function getPlantWaterdate () {
+        let waterarr = [];
+        for (var i=0; i<plantList.length; i++) {
+            waterarr.push({
+                id: plantList[i].id,
+                waterDate: plantList[i].waterDate
+            })
+        }
+        console.log(waterarr);
+        return waterarr;
+    }
     
     useEffect(() => {
         axios
@@ -113,12 +153,35 @@ const PlantList = () => {
             setWaterTiming(response.data);
         })
         .catch((error) => {
-            console.log(error.response);
+            // console.log(error.response);
         })
     }, [])
     
-    const editButton = () => {
-        setEditModal(true);
+    const nicknameButton = (id) => {
+        setNicknameModal(true);
+        setId(plantList[id-1].id);
+        setPlantId(plantList[id-1].plantId);
+        setNickname(plantList[id-1].nickname);
+        console.log(id);
+        console.log(plantList[id-1].nickname);
+        console.log(nickname);
+        
+        document.body.style.cssText = `
+        position: fixed;
+        top: -${window.scrollY}px;
+        overflow-y: scroll;
+        width: 100%;`;
+    }
+
+    const waterdateButton = (id) => {
+        setWaterdateModal(true);
+        setId(plantList[id-1].id);
+        setPlantId(plantList[id-1].plantId);
+        setWaterDate(plantList[id-1].waterDate);
+        console.log(id);
+        console.log(plantList[id-1].waterDate);
+        console.log(waterDate);
+
         document.body.style.cssText = `
         position: fixed;
         top: -${window.scrollY}px;
@@ -144,19 +207,52 @@ const PlantList = () => {
         width: 100%;`;
     }
 
-    const editmodalCancelButton = () => {
-        setEditModal(false);
+    const nicknamemodalCancelButton = () => {
+        setNicknameModal(false);
+        const scrollY = document.body.style.top;
+        document.body.style.cssText = '';
+        window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
     }
 
-    const editmodalConfirmButton = () => {
+    const waterdatemodalCancelButton = () => {
+        setWaterdateModal(false);
+        const scrollY = document.body.style.top;
+        document.body.style.cssText = '';
+        window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+    }
+
+    const nicknamemodalConfirmButton = () => {
         axios
-        .put('/mypage/modify/nickname', { nickname: nickname }, { withCredentials: true })
+        .put(`/mypage/modify/nickname?id=${id}&nickname=${newNickname}`, { nickname: newNickname }, { withCredentials: true })
         .then((response) => {
             console.log(response);
-            setNickname(nickname);
+            console.log(plantId);
+            console.log(nickname);
+            console.log(newNickname);
+            window.location.reload();
         })
         .catch((error) => {
             console.log(error.response);
+            console.log(plantId);
+            console.log(nickname);
+            console.log(newNickname);
+            alert("다시 시도해주세요");
+        })
+    }
+
+    const waterdatemodalConfirmButton = () => {
+        axios
+        .put(`/mypage/modify/waterdate?id=${id}&waterDate=${newWaterDate}`, { waterDate: newWaterDate }, { withCredentials: true })
+        .then((response) => {
+            console.log(response);
+            console.log(plantId);
+            console.log(newWaterDate);
+            window.location.reload();
+        })
+        .catch((error) => {
+            console.log(error.response);
+            console.log(plantId);
+            console.log(newWaterDate);
             alert("다시 시도해주세요");
         })
     }
@@ -197,14 +293,17 @@ const PlantList = () => {
 
     const handleNickname = (e) => {
         setNewNickname(e.target.value);
+        console.log(e.target.value);
     }
 
     const handleWaterdate = (e) => {
         setNewWaterDate(e.target.value);
+        console.log(e.target.value);
     }
 
     const handleSelectChange = (e) => {
         setNewName(e.target.value);
+        console.log(e.target.value);
     }
 
     const waterButton = async() => {
@@ -233,14 +332,81 @@ const PlantList = () => {
     function viewPlantList () {
         const items = plantList.map((element) =>
             <>
-                <div className='preview_box'>
-                    {element.waterTiming ?
-                        <div className='preview_water'>
-                            <img src={waterdrop} alt='waterdrop' />
-                        </div> : null
-                    }
+            {/* <div className='preview_box'> */}
+                {waterTiming ?
+                    <div className='preview_water'>
+                        <img src={waterdrop} alt='waterdrop' />
+                    </div> : null
+                }
+                <div className='preview'>
+                    <img className='preview_image' src={element.imgUri} alt='plantimg' />
+                    <div className='preview_info'>
+                        <div>{element.waterDate}</div>
+                        <div>{element.nickname}</div>
+                    </div>
+                    <div className='buttons_1'>
+                        <StyledTransparentButton onClick={removeButton}>삭제</StyledTransparentButton>
+                        <AskModal
+                            visible={removeModal}
+                            title=""
+                            description={'식물을 삭제하시겠습니까?'}
+                            onConfirm={removemodalConfirmButton}
+                            onCancel={removemodalCancelButton}
+                        />
+                        <StyledTransparentButton onClick={()=>nicknameButton(element.id)}>애칭 수정</StyledTransparentButton>
+                        <AskModal
+                            visible={nicknameModal}
+                            title="식물 정보 수정"
+                            description={
+                                <>
+                                <img className='preview_image' src={herb} alt="herb" style={{marginBottom: '1rem'}}/>
+                                {/* <GreenButton onClick={imageButtonClick} style={{marginTop: "1rem"}}>사진 수정</GreenButton>
+                                <input
+                                        type="file"
+                                        accept="image/*"
+                                        name="profile"
+                                        ref={fileInput}
+                                        onChange={handleImage}
+                                        style={{ display: "none" }}
+                                />
+                                <br /> */}
+                                <div style={{display: 'flex', marginTop: '1.5rem'}}>
+                                    <div>애칭 :</div>&nbsp;
+                                    <TextArea onChange={handleNickname} placeholder={nickname} />
+                                </div>
+                                </>
+                            }
+                            onConfirm={nicknamemodalConfirmButton}
+                            onCancel={nicknamemodalCancelButton}
+                        />
+                        <StyledTransparentButton onClick={()=>waterdateButton(element.id)}>물 준 날짜 수정</StyledTransparentButton>
+                        <AskModal
+                            visible={waterdatetModal}
+                            title="식물 정보 수정"
+                            description={
+                                <>
+                                <div style={{display: 'flex', marginTop: '1.5rem'}}>
+                                    <div>물 준 날짜 :</div>&nbsp;
+                                    <TextArea onChange={handleWaterdate} placeholder={waterDate} />
+                                </div>
+                                </>
+                            }
+                            onConfirm={waterdatemodalConfirmButton}
+                            onCancel={waterdatemodalCancelButton}
+                        />
+                    </div>
+                    <div className='buttons_2'>
+                        <div>
+                        <StyledGreenButton className='preview_button'>자세히 보기</StyledGreenButton>
+                        <StyledGreenButton onClick={waterButton} className='preview_button'>물 주기</StyledGreenButton>
+                        </div>
+                    </div>
                 </div>
+            {/* </div> */}
             </>
+        );
+        return (
+            <div>{items}</div>
         )
     }
 
@@ -301,65 +467,7 @@ const PlantList = () => {
                 />
             </div>
             <div className='preview_box'>
-                {waterTiming ?
-                    <div className='preview_water'>
-                        <img src={waterdrop} alt='waterdrop' />
-                    </div> : null
-                }
-                <div className='preview'>
-                    <img className='preview_image' src={herb} alt='herb' />
-                    <div className='preview_info'>
-                        <div>{date}</div>
-                        <div>{waterDate}</div>
-                        <div>{nickname} {'('} {name} {')'}</div>
-                    </div>
-                    <div className='buttons_1'>
-                        <StyledTransparentButton onClick={removeButton}>삭제</StyledTransparentButton>
-                        <AskModal
-                            visible={removeModal}
-                            title=""
-                            description={'식물을 삭제하시겠습니까?'}
-                            onConfirm={removemodalConfirmButton}
-                            onCancel={removemodalCancelButton}
-                        />
-                        <StyledTransparentButton onClick={editButton}>수정</StyledTransparentButton>
-                        <AskModal
-                            visible={editModal}
-                            title="식물 정보 수정"
-                            description={
-                                <>
-                                <img className='preview_image' src={herb} alt="herb" style={{marginBottom: '1rem'}}/>
-                                <GreenButton /*onClick={imageButtonClick}*/ style={{marginTop: "1rem"}}>사진 수정</GreenButton>
-                                <input
-                                        type="file"
-                                        accept="image/*"
-                                        name="profile"
-                                        ref={fileInput}
-                                        onChange={handleImage}
-                                        style={{ display: "none" }}
-                                />
-                                <br />
-                                <div style={{display: 'flex', marginTop: '1.5rem'}}>
-                                    <div>애칭 :</div>&nbsp;
-                                    <TextArea onChange={handleNickname} placeholder={nickname} />
-                                </div>
-                                <div style={{display: 'flex', marginTop: '1rem'}}>
-                                    <div>물 준 날짜 :</div>&nbsp;
-                                    <TextArea onChange={handleWaterdate} placeholder={waterDate} />
-                                </div>
-                                </>
-                            }
-                            onConfirm={editmodalConfirmButton}
-                            onCancel={editmodalCancelButton}
-                        />
-                    </div>
-                    <div className='buttons_2'>
-                        <div>
-                        <StyledGreenButton className='preview_button'>자세히 보기</StyledGreenButton>
-                        <StyledGreenButton onClick={waterButton} className='preview_button'>물 주기</StyledGreenButton>
-                        </div>
-                    </div>
-                </div>
+                {viewPlantList()}
             </div>
         </>
     );

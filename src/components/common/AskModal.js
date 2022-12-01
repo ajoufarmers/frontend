@@ -4,7 +4,6 @@ import React, { useEffect } from 'react';
 
 const Fullscreen = styled.div`
     position: fixed;
-    z-index: 30;
     top: 0;
     left: 0;
     width: 100%;
@@ -13,8 +12,7 @@ const Fullscreen = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1020;
-
+    z-index: 1030;
 `;
 
 const AskModalBlock = styled.div`

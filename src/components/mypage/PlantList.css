@@ -38,6 +38,7 @@
     position: relative;
     align-items: center;
     text-align: center;
+    z-index: 1000;
 }
 
 .preview {
@@ -49,7 +50,6 @@
     margin-right: 0.5rem;
     float: left;
     position: relative;
-    z-index: 1;
 }
 
 .preview_water {
@@ -59,7 +59,7 @@
     position: absolute;
     margin-top: -1.8rem;
     margin-left: -0.8rem;
-    z-index: 2;
+    z-index: 1000;
 }
 
 .preview_image {
