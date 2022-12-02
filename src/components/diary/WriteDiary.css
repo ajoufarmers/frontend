@@ -63,7 +63,7 @@ input + label {
     cursor: pointer;
     margin: 0 auto;
     width: 20%;
-    background-image: url('../../images/checkbox_gray.png');
+    background-image: url('/public/assets/checkbox_gray.png');
     background-repeat: no-repeat;
     vertical-align: middle;
 }
@@ -73,7 +73,7 @@ input:checked + label {
     cursor: pointer;
     margin: 0 auto;
     width: 20%;
-    background-image: url('../../images/checkbox_color.png');
+    background-image: url('/public/assets/checkbox_color.png');
     background-repeat: no-repeat;
     vertical-align: middle;
 }

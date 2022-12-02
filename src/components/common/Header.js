@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Responsive from './Responsive';
 import NavyButton from './NavyButton';
-import logo from '../../images/logo.png';
 import '../../lib/styles/fonts/font.css';
 import * as googleAPI from '../../lib/api/auth';
 
@@ -49,7 +48,7 @@ const Header = () => {
             <HeaderBlock>
                 <Wrapper>
                     <Link to="/main" className="logo">
-                        <img className='logoimage' src={logo} alt="logo" />
+                        <img className='logoimage' src='/assets/logo.png' alt="logo" />
                     </Link>
                     <div className='logotext'>맛있는 녀석들</div>
                     <div className='right'>

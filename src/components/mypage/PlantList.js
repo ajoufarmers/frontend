@@ -1,8 +1,5 @@
 import './PlantList.css';
 import styled from 'styled-components';
-import herb from '../../images/lemontree.jpg';
-import waterdrop from '../../images/waterdrop.png';
-import profile from '../../images/profile.png';
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import TransparentButton from '../common/TransparentButton';
@@ -307,7 +304,7 @@ const PlantList = () => {
                 <div className='preview'>
                     { (element.isWater) ?
                         <div className='preview_water'>
-                            <img src={waterdrop} alt='watedrop' />
+                            <img src='/assets/waterdrop.png' alt='watedrop' />
                         </div> : null
                     }
                     <img className='preview_image' src={element.imgUri} alt='plantimg' />
@@ -330,7 +327,7 @@ const PlantList = () => {
                             title="식물 정보 수정"
                             description={
                                 <>
-                                <img className='preview_image' src={herb} alt="herb" style={{marginBottom: '1rem'}}/>
+                                <img className='preview_image' src='/assets/lemontree.jpg' alt="herb" style={{marginBottom: '1rem'}}/>
                                 {/* <GreenButton onClick={imageButtonClick} style={{marginTop: "1rem"}}>사진 수정</GreenButton>
                                 <input
                                         type="file"
@@ -395,7 +392,7 @@ const PlantList = () => {
                                 <div className='profile'>
                                     {imgFile ?
                                         <img className='profile' src={imgFile} alt='profile' />
-                                        : <img className='profile' src={profile} alt='profile' />
+                                        : <img className='profile' src='/assets/profile.png' alt='profile' />
                                     }
                                 </div>
                                 <div style={{display: 'flex', marginTop: '1.5rem', justifyContent: 'center'}}>

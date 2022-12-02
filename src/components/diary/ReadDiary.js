@@ -5,11 +5,6 @@ import { Navigate, useLocation, useNavigate  } from 'react-router-dom';
 import styled from 'styled-components';
 import TransparentButton from '../common/TransparentButton';
 import AskModal from '../common/AskModal.js';
-import state1 from '../../images/state1.png';
-import state2 from '../../images/state2.png';
-import state3 from '../../images/state3.png';
-import state4 from '../../images/state4.png';
-import state5 from '../../images/state5.png';
 
 const StyledButton = styled(TransparentButton)`
     padding-left: 10px;
@@ -219,7 +214,7 @@ const ReadDiary = () => {
                 if(diarylist[j].state === 0) {
                     return (
                         <>
-                            <img src={state1} alt='state1' />
+                            <img src='/assets/state1.png' alt='state1' />
                             <div>매우 나쁨</div>
                         </>
                     )
@@ -227,7 +222,7 @@ const ReadDiary = () => {
                 else if(diarylist[j].state === 1) {
                     return (
                         <>
-                            <img src={state2} alt='state2' />
+                            <img src='/assets/state2.png' alt='state2' />
                             <div>나쁨</div>
                         </>
                     )
@@ -235,7 +230,7 @@ const ReadDiary = () => {
                 else if(diarylist[j].state === 2) {
                     return (
                         <>  
-                            <img src={state3} alt='state3' />
+                            <img src='/assets/state3.png' alt='state3' />
                             <div>보통</div>
                         </>
                     )
@@ -243,7 +238,7 @@ const ReadDiary = () => {
                 else if(diarylist[j].state === 3) {
                     return (
                         <>
-                            <img src={state4} alt='state4' />
+                            <img src='/assets/state4.png' alt='state4' />
                             <div>좋음</div>
                         </>
                     )
@@ -251,7 +246,7 @@ const ReadDiary = () => {
                 else if(diarylist[j].state === 4) {
                     return (
                         <>
-                            <img src={state5} alt='state5' />
+                            <img src='/assets/state5.png' alt='state5' />
                             <div>매우 좋음</div>
                         </>
                     )

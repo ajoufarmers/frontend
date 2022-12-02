@@ -1,10 +1,5 @@
 import './MainPage.css';
 import Header from "../components/common/Header";
-import dictionary from '../images/dictionary.png';
-import pencil from '../images/pencil.png';
-import thumbsup from '../images/thumbsup.png';
-import community from '../images/community.png';
-import mypage from '../images/mypage.png';
 import GreenButton from '../components/common/GreenButton';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
@@ -45,35 +40,35 @@ const MainPage = () => {
             <Header />
             <div className='box_wrapper'>
                 <div className='button_card'>
-                    <img src={dictionary} alt='dictionary' />
+                    <img src='/assets/dictionary.png' alt='dictionary' />
                     <div className='text'>
                         식물 ~~~~~~ 정보를 자세히 볼 수 있습니다.
                     </div>
                     <StyledButton onClick={dictionaryButton}>식물 도감</StyledButton>
                 </div>
                 <div className='button_card'>
-                    <img src={pencil} alt='dictionary' />
+                    <img src='/assets/pencil.png' alt='dictionary' />
                     <div className='text'>
                         식물 ~~~~~~ 기록할 수 있습니다.
                     </div>
                     <StyledButton onClick={diaryButton}>성장 일기</StyledButton>
                 </div>
                 <div className='button_card'>
-                    <img src={thumbsup} alt='dictionary' />
+                    <img src='/assets/thumbsup.png' alt='dictionary' />
                     <div className='text'>
                         식물 ~~~~~~ 추천받을 수 있습니다.
                     </div>
                     <StyledButton onClick={recommendButton}>식물 추천</StyledButton>
                 </div>
                 <div className='button_card'>
-                    <img src={community} alt='dictionary' />
+                    <img src='/assets/community.png' alt='dictionary' />
                     <div className='text'>
                         식물 ~~~~~~ 커뮤니티 입니다.
                     </div>
                     <StyledButton>커뮤니티</StyledButton>
                 </div>
                 <div className='button_card'>
-                    <img src={mypage} alt='dictionary' />
+                    <img src='/assets/mypage.png' alt='dictionary' />
                     <div className='text'>
                         식물 ~~~~~~ 마이페이지.
                     </div>

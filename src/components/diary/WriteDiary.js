@@ -6,11 +6,6 @@ import * as diaryAPI from '../../lib/api/diary';
 import { useNavigate } from "react-router";
 import { useLocation } from "react-router-dom";
 import NavyButton from "../common/NavyButton";
-import state1 from '../../images/state1.png';
-import state2 from '../../images/state2.png';
-import state3 from '../../images/state3.png';
-import state4 from '../../images/state4.png';
-import state5 from '../../images/state5.png';
 
 const TextArea = styled.textarea`
     width: 80%;
@@ -117,7 +112,7 @@ const WriteDiary = () => {
                     onChange={(e) => checkOnlyOne(e)}
                 />
                 <label className='option' htmlFor='0'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <img src={state1} alt='state1' />
+                    <img src='/assets/state1.png' alt='state1' />
                     <div className='option_text'>매우 나쁨</div>
                 </label>
                 <input
@@ -128,7 +123,7 @@ const WriteDiary = () => {
                     onChange={(e) => checkOnlyOne(e)}
                 />
                 <label className='option' htmlFor='1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <img src={state2} alt='state2' />
+                    <img src='/assets/state2.png' alt='state2' />
                     <div className='option_text'>나쁨</div>
                 </label>
                 <input
@@ -139,7 +134,7 @@ const WriteDiary = () => {
                     onChange={(e) => checkOnlyOne(e)}
                 />
                 <label className='option' htmlFor='2'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <img src={state3} alt='state3' />
+                    <img src='/assets/state3.png' alt='state3' />
                     <div className='option_text'>보통</div>
                 </label>
                 <input
@@ -150,7 +145,7 @@ const WriteDiary = () => {
                     onChange={(e) => checkOnlyOne(e)}
                 />
                 <label className='option' htmlFor='3'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <img src={state4} alt='state4' />
+                    <img src='/assets/state4.png' alt='state4' />
                     <div className='option_text'>좋음</div>
                 </label>
                 <input
@@ -161,7 +156,7 @@ const WriteDiary = () => {
                     onChange={(e) => checkOnlyOne(e)}
                 />
                 <label className='option' htmlFor='4'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <img src={state5} alt='state5' />
+                    <img src='/assets/state5.png' alt='state5' />
                     <div className='option_text'>매우 좋음</div>
                 </label>
             </div>

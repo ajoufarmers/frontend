@@ -5,7 +5,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import GreenButton from '../common/GreenButton';
 import AskModal from '../common/AskModal.js';
-import lemon from '../../images/lemontree.jpg';
 
 const Dictonary = () => {
     const [plantList, setPlantList] = useState([]);
@@ -46,7 +45,7 @@ const Dictonary = () => {
                 <div className='preview_box'>
                     <div className='preview' onClick={()=>goDetail(element.id)}>
                         <div className='preview_image' key={element.imgUri}>
-                            <img src={element.imgUri} alt='img' />
+                            <img className='img' src={element.imgUri} alt='img' />
                         </div>
                         <div className='preview_name' key={element.name}>{element.name}</div>
                     </div>

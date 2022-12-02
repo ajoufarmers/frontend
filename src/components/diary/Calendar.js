@@ -5,11 +5,6 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from "@fullcalendar/interaction";
 import './Calendar.css';
 import axios from 'axios';
-import state1 from '../../images/state1.png';
-import state2 from '../../images/state2.png';
-import state3 from '../../images/state3.png';
-import state4 from '../../images/state4.png';
-import state5 from '../../images/state5.png';
 import { useNavigate } from 'react-router-dom';
 
 const CalendarBlock = styled.div`
@@ -76,7 +71,7 @@ const Calendar = () => {
             return (
                 <>
                     <div className='event'>
-                        <img display='block' margin='0 auto' src={state1} alt='state1' />
+                        <img display='block' margin='0 auto' src='/assets/state1.png' alt='state1' />
                     </div>
                     <div className='event'>
                         매우 나쁨
@@ -88,7 +83,7 @@ const Calendar = () => {
             return (
                 <>
                     <div className='event'>
-                        <img display='block' margin='0 auto' src={state2} alt='state2' />
+                        <img display='block' margin='0 auto' src='/assets/state2.png' alt='state2' />
                     </div>
                     <div className='event'>
                         나쁨
@@ -100,7 +95,7 @@ const Calendar = () => {
             return (
                 <>
                     <div className='event'>
-                        <img display='block' margin='0 auto' src={state3} alt='state3' />
+                        <img display='block' margin='0 auto' src='/assets/state3.png' alt='state3' />
                     </div>
                     <div className='event'>
                         보통
@@ -112,7 +107,7 @@ const Calendar = () => {
             return (
                 <>
                     <div className='event'>
-                        <img display='block' margin='0 auto' src={state4} alt='state4' />
+                        <img display='block' margin='0 auto' src='/assets/state4.png' alt='state4' />
                     </div>
                     <div className='event'>
                         좋음
@@ -124,7 +119,7 @@ const Calendar = () => {
             return (
                 <>
                     <div className='event'>
-                        <img display='block' margin='0 auto' src={state5} alt='state5' />
+                        <img display='block' margin='0 auto' src='/assets/state5.png' alt='state5' />
                     </div>
                     <div className='event'>
                         매우 좋음

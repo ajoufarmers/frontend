@@ -59,6 +59,15 @@
     border-radius: 50%;
 }
 
+.img {
+    margin: 0 auto;
+    margin-top: 0.5rem;
+    display: block;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
 .preview_name {
     /* background-color: beige;
     border-radius: 10px; */

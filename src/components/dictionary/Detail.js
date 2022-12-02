@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import TransparentButton from '../common/TransparentButton';
 import './Detail.css';
-import lemon from '../../images/lemontree.jpg';
 
 const Detail = () => {
     const [id, setId] = useState('');
@@ -49,7 +48,7 @@ const Detail = () => {
     }, [id])
 
     const onClick = () => {
-        navigate(-1);
+        navigate('/dictionary');
     }
 
 
