@@ -60,7 +60,7 @@ const SelectBox = styled.select`
 const PlantList = () => {
     // 이미지, 키우기시작한 날짜, 최근 물준날짜, 애칭, 학명, 자세히보기 버튼
     const [memberId, setMemberId] = useState(1);
-    const [id, setId] = useState('');
+    const [id, setId] = useState();
     const [plantId, setPlantId] = useState('');
     const [date, setDate] = useState('');
     const [waterDate, setWaterDate] = useState([]);
@@ -81,15 +81,13 @@ const PlantList = () => {
     const navigate = useNavigate();
     let nicknamearr = [];
     const plant_Id = useRef(null);
+    const ID = useRef(null);
 
     const PLANTS = [
         { value: '', name: '종류를 선택하세요'},
-        { value: '콩나물', name: '콩나물' },
-        { value: '감자', name: '감자' },
-        { value: '상추', name: '상추' },
-        { value: '루콜라', name: '루콜라' },
-        { value: '허브', name: '허브' },
-        { value: '콩', name: '콩' },
+        { value: 1, name: '배추' },
+        { value: 2, name: '부추' },
+        { value: 3, name: '레몬' },
     ];
 
     useEffect(() => {
@@ -98,7 +96,7 @@ const PlantList = () => {
         .then((response) => {
             console.log(response.data);
             setPlantList(response.data);
-            console.log(plantList);
+            console.log(plantList[2].id);
         })
         .catch((error) => {
             console.log(error.response);
@@ -107,10 +105,14 @@ const PlantList = () => {
     
     const nicknameButton = (id) => {
         setNicknameModal(true);
-        setId(plantList[id-1].id);
+        setId(plantList[id-1].id); // []안에 id가 undefined로 뜸
+        ID.current = plantList[id-1].id;
         setPlantId(plantList[id-1].plantId);
         setNickname(plantList[id-1].nickname);
         console.log(id);
+        console.log(ID.current);
+        console.log(plantList[id-1].id);
+        console.log(plantList[id-1].plantId);
         console.log(plantList[id-1].nickname);
         console.log(nickname);
         console.log(plantId);
@@ -125,6 +127,7 @@ const PlantList = () => {
     const waterdateButton = (id) => {
         setWaterdateModal(true);
         setId(plantList[id-1].id);
+        ID.current = plantList[id-1].id;
         setPlantId(plantList[id-1].plantId);
         setWaterDate(plantList[id-1].waterDate);
         console.log(id);
@@ -178,6 +181,7 @@ const PlantList = () => {
         .put(`/mypage/modify/nickname?id=${id}&nickname=${newNickname}`, { nickname: newNickname }, { withCredentials: true })
         .then((response) => {
             console.log(response);
+            console.log(id);
             console.log(plantId);
             console.log(nickname);
             console.log(newNickname);
@@ -185,6 +189,7 @@ const PlantList = () => {
         })
         .catch((error) => {
             console.log(error.response);
+            console.log(id);
             console.log(plantId);
             console.log(nickname);
             console.log(newNickname);
@@ -192,8 +197,8 @@ const PlantList = () => {
         })
     }
 
-    const waterdatemodalConfirmButton = () => {
-        axios
+    const waterdatemodalConfirmButton = async() => {
+        await axios
         .put(`/mypage/modify/waterdate?id=${id}&waterDate=${newWaterDate}`, { waterDate: newWaterDate }, { withCredentials: true })
         .then((response) => {
             console.log(response);
@@ -263,12 +268,15 @@ const PlantList = () => {
     const handleSelectChange = (e) => {
         setNewName(e.target.value);
         console.log(e.target.value);
+        setPlantId(e.target.value);
+        setId(e.target.value);
     }
 
-    const waterButton = (id) => {
+    const waterButton = async(id) => {
         setId(plantList[id-1].id);
-        axios
-        .put(`/mypage/modify/waterdate?id=${id}&waterDate=${today}`, { waterDate: today }, { withCredentials: true })
+        ID.current= plantList[id-1].id;
+        await axios
+        .put(`/mypage/modify/waterdate?id=${ID.current}&waterDate=${today}`, { waterDate: today }, { withCredentials: true })
         .then((response) => {
             console.log(response);
             console.log(today);
@@ -279,6 +287,7 @@ const PlantList = () => {
             console.log(error.response);
             alert("다시 시도해주세요");
             console.log(today);
+            console.log(id);
         })
     }
 
@@ -298,7 +307,7 @@ const PlantList = () => {
     };
 
     function viewPlantList () {
-        const items = plantList.map((element) =>
+        const items = plantList.map((element, id) =>
             <>
             {/* <div className='preview_box'> */}
                 <div className='preview'>
@@ -313,7 +322,7 @@ const PlantList = () => {
                         <div>{element.nickname}</div>
                     </div>
                     <div className='buttons_1'>
-                        <StyledTransparentButton onClick={()=>removeButton(element.id)}>삭제</StyledTransparentButton>
+                        <StyledTransparentButton onClick={()=>removeButton(id+1)}>삭제</StyledTransparentButton>
                         <AskModal
                             visible={removeModal}
                             title=""
@@ -321,7 +330,7 @@ const PlantList = () => {
                             onConfirm={removemodalConfirmButton}
                             onCancel={removemodalCancelButton}
                         />
-                        <StyledTransparentButton onClick={()=>nicknameButton(element.id)}>애칭 수정</StyledTransparentButton>
+                        <StyledTransparentButton onClick={()=>nicknameButton(id+1)}>애칭 수정</StyledTransparentButton>
                         <AskModal
                             visible={nicknameModal}
                             title="식물 정보 수정"
@@ -347,7 +356,7 @@ const PlantList = () => {
                             onConfirm={nicknamemodalConfirmButton}
                             onCancel={nicknamemodalCancelButton}
                         />
-                        <StyledTransparentButton onClick={()=>waterdateButton(element.id)}>물 준 날짜 수정</StyledTransparentButton>
+                        <StyledTransparentButton onClick={()=>waterdateButton(id+1)}>물 준 날짜 수정</StyledTransparentButton>
                         <AskModal
                             visible={waterdatetModal}
                             title="식물 정보 수정"
@@ -365,8 +374,8 @@ const PlantList = () => {
                     </div>
                     <div className='buttons_2'>
                         <div>
-                        <StyledGreenButton onClick={()=>detailButton(element.id)} className='preview_button'>자세히 보기</StyledGreenButton>
-                        <StyledGreenButton onClick={()=>waterButton(element.id)} className='preview_button'>물 주기</StyledGreenButton>
+                        <StyledGreenButton onClick={()=>detailButton(id+1)} className='preview_button'>자세히 보기</StyledGreenButton>
+                        <StyledGreenButton onClick={()=>waterButton(id+1)} className='preview_button'>물 주기</StyledGreenButton>
                         </div>
                     </div>
                 </div>
