@@ -69,7 +69,7 @@ const Step5 = ({ checkList, arr, prevSteps, nextSteps }) => {
                     :
                     axios
                     // .get('/recommend/list', { params: {category: arr[0], size: arr[1], difficulty: arr[3], brightness: arr[4], waterRate: arr[5] }}, { withCredentials: true })
-                    .post('/recommend/list', {category: arr[0], size: arr[1], difficulty: arr[3], brightness: arr[4], waterRate: arr[5] }, { withCredentials: true })
+                    .get('/recommend/list', {category: arr[0], size: arr[1], difficulty: arr[3], brightness: arr[4], waterRate: arr[5] }, { withCredentials: true })
                     .then((response) => {
                         console.log(response);
 

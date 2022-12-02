@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import herb from '../../images/lemontree.jpg';
 import waterdrop from '../../images/waterdrop.png';
 import profile from '../../images/profile.png';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import TransparentButton from '../common/TransparentButton';
 import GreenButton from '../common/GreenButton';
@@ -64,7 +64,7 @@ const PlantList = () => {
     // 이미지, 키우기시작한 날짜, 최근 물준날짜, 애칭, 학명, 자세히보기 버튼
     const [memberId, setMemberId] = useState(1);
     const [id, setId] = useState('');
-    const [plantId, setPlantId] = useState();
+    const [plantId, setPlantId] = useState('');
     const [date, setDate] = useState('');
     const [waterDate, setWaterDate] = useState([]);
     const [nickname, setNickname] = useState([]);
@@ -78,12 +78,12 @@ const PlantList = () => {
     const [removeModal, setRemoveModal] = useState(false);
     const [registerModal, setRegisterModal] = useState(false);
     const today = new Date().toISOString().substring(0, 10);
-    const [waterTiming, setWaterTiming] = useState([]);
     const fileInput = React.useRef(null);
     const [imgFile, setImgFile] = useState("");
     const [plantList, setPlantList] = useState([]);
     const navigate = useNavigate();
     let nicknamearr = [];
+    const plant_Id = useRef(null);
 
     const PLANTS = [
         { value: '', name: '종류를 선택하세요'},
@@ -96,9 +96,6 @@ const PlantList = () => {
     ];
 
     useEffect(() => {
-        getPlantId();
-        getPlantNickname();
-        getPlantWaterdate();
         axios
         .get(`/mypage/list?memberId=${memberId}`, { withCredentials: true })
         .then((response) => {
@@ -110,52 +107,6 @@ const PlantList = () => {
             console.log(error.response);
         })
     }, [memberId])
-
-    function getPlantId () {
-        let plantIdarr = [];
-        for (var i=0; i<plantList.length; i++) {
-            plantIdarr.push({
-                id: plantList[i].plantId
-            })
-        }
-        console.log(plantIdarr);
-        return plantIdarr;
-    }
-
-    function getPlantNickname () {
-        for (var i=0; i<plantList.length; i++) {
-            nicknamearr.push({
-                id: plantList[i].id,
-                nickname: plantList[i].nickname
-            })
-        }
-        console.log(nicknamearr);
-        return nicknamearr;
-    }
-
-    function getPlantWaterdate () {
-        let waterarr = [];
-        for (var i=0; i<plantList.length; i++) {
-            waterarr.push({
-                id: plantList[i].id,
-                waterDate: plantList[i].waterDate
-            })
-        }
-        console.log(waterarr);
-        return waterarr;
-    }
-    
-    useEffect(() => {
-        axios
-        .get(`/mypage/watertiming?memberId=${memberId}`, { withCredentials: true })
-        .then((response) => {
-            console.log(response.data);
-            setWaterTiming(response.data);
-        })
-        .catch((error) => {
-            // console.log(error.response);
-        })
-    }, [])
     
     const nicknameButton = (id) => {
         setNicknameModal(true);
@@ -165,6 +116,7 @@ const PlantList = () => {
         console.log(id);
         console.log(plantList[id-1].nickname);
         console.log(nickname);
+        console.log(plantId);
         
         document.body.style.cssText = `
         position: fixed;
@@ -189,8 +141,11 @@ const PlantList = () => {
         width: 100%;`;
     }
 
-    const removeButton = () => {
+    const removeButton = (id) => {
         setRemoveModal(true);
+        setId(plantList[id-1].id);
+        console.log(id);
+
         document.body.style.cssText = `
         position: fixed;
         top: -${window.scrollY}px;
@@ -259,16 +214,23 @@ const PlantList = () => {
 
     const removemodalCancelButton = () => {
         setRemoveModal(false);
+        const scrollY = document.body.style.top;
+        document.body.style.cssText = '';
+        window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
     }
 
     const removemodalConfirmButton = async() => {
         await axios
-        .delete(`http://3.39.17.18/diaries/details/${plantId}`, { withCredentials: true })
+        .post(`/mypage/delete?id=${id}`, { memberId: memberId }, { withCredentials: true })
         .then((response) => {
             console.log(response);
+            console.log(id);
+            window.location.reload();
         })
         .catch((error) => {
             console.log(error.response);
+            console.log(id);
+            alert('다시 시도해주세요');
         })
     }
 
@@ -306,18 +268,27 @@ const PlantList = () => {
         console.log(e.target.value);
     }
 
-    const waterButton = async() => {
-        await axios
-        .patch(`http://3.39.17.18/mypage/modify/waterdate`, { waterDate: today }, { withCredentials: true })
+    const waterButton = (id) => {
+        setId(plantList[id-1].id);
+        axios
+        .put(`/mypage/modify/waterdate?id=${id}&waterDate=${today}`, { waterDate: today }, { withCredentials: true })
         .then((response) => {
             console.log(response);
-            alert("물 주기 완료")
+            console.log(today);
+            alert("물 주기 완료");
+            window.location.reload();
         })
         .catch((error) => {
             console.log(error.response);
-            alert("다시 시도해주세요")
+            alert("다시 시도해주세요");
             console.log(today);
         })
+    }
+
+    const detailButton = (id) => {
+        plant_Id.current = plantList[id-1].plantId;
+        console.log(plant_Id);
+        navigate(`/detail/${plant_Id.current}`);
     }
 
     const imageButtonClick = e => {
@@ -333,19 +304,19 @@ const PlantList = () => {
         const items = plantList.map((element) =>
             <>
             {/* <div className='preview_box'> */}
-                {waterTiming ?
-                    <div className='preview_water'>
-                        <img src={waterdrop} alt='waterdrop' />
-                    </div> : null
-                }
                 <div className='preview'>
+                    { (element.isWater) ?
+                        <div className='preview_water'>
+                            <img src={waterdrop} alt='watedrop' />
+                        </div> : null
+                    }
                     <img className='preview_image' src={element.imgUri} alt='plantimg' />
                     <div className='preview_info'>
                         <div>{element.waterDate}</div>
                         <div>{element.nickname}</div>
                     </div>
                     <div className='buttons_1'>
-                        <StyledTransparentButton onClick={removeButton}>삭제</StyledTransparentButton>
+                        <StyledTransparentButton onClick={()=>removeButton(element.id)}>삭제</StyledTransparentButton>
                         <AskModal
                             visible={removeModal}
                             title=""
@@ -397,8 +368,8 @@ const PlantList = () => {
                     </div>
                     <div className='buttons_2'>
                         <div>
-                        <StyledGreenButton className='preview_button'>자세히 보기</StyledGreenButton>
-                        <StyledGreenButton onClick={waterButton} className='preview_button'>물 주기</StyledGreenButton>
+                        <StyledGreenButton onClick={()=>detailButton(element.id)} className='preview_button'>자세히 보기</StyledGreenButton>
+                        <StyledGreenButton onClick={()=>waterButton(element.id)} className='preview_button'>물 주기</StyledGreenButton>
                         </div>
                     </div>
                 </div>

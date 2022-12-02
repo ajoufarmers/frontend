@@ -58,8 +58,8 @@ const Detail = () => {
             <div className="title">
                 식물 세부 정보
             </div>
-            <div>
-                <TransparentButton className='button' onClick={onClick}>도감으로</TransparentButton>
+            <div className='prevbutton'>
+                <TransparentButton onClick={onClick} style={{float: 'right', marginRight: '6rem'}}>도감으로</TransparentButton>
             </div>
             <div className="detail_box">
                 <div className="image_box">
