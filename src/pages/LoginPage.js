@@ -4,6 +4,7 @@ import NavyButton from '../components/common/NavyButton';
 import styled from 'styled-components';
 import '../lib/styles/fonts/font.css';
 import * as googleAPI from '../lib/api/auth';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
     document.body.style.cssText = `
@@ -12,6 +13,11 @@ const LoginPage = () => {
     overflow-y: scroll;
     width: 100%;`;
 
+    const navigate = useNavigate();
+    const goMain = () => {
+        navigate('/main');
+    }
+
     return (
         <div className='background'>
         <div className='mount'>
@@ -19,7 +25,7 @@ const LoginPage = () => {
                 <img className='header_logo' src='/assets/logo.png' alt="logo" />
                 <div className='header_text' style={{fontFamily:"S-CoreDream-2Light", fontSize:"1.75rem", fontWeight:"bold"}}>맛있는 녀석들</div>
                 <TransparentButton className='header_usbutton'>Contact Us</TransparentButton>
-                <NavyButton className='header_loginbutton' onClick={googleAPI.login}>로그인</NavyButton>
+                <NavyButton className='header_loginbutton' onClick={goMain}>로그인</NavyButton>
             </div>
             <div className='explainbox'>
                 <img className='lemonimage' src='/assets/lemontree.jpg' alt="lemon" />

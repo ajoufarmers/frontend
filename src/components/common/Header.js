@@ -39,6 +39,12 @@ const Wrapper = styled(Responsive)`
         right: 0;
         margin-right: 1rem;
     }
+    .userName {
+        font-size: 1.2rem;
+        font-weight: 400;
+        font-family: NeoDunggeunmo;
+        margin-right: 1rem;
+    }
 `;
 
 const Spacer = styled.div`
@@ -66,6 +72,7 @@ const Header = () => {
                     </div>
                     {/* <div className='logotext'>맛있는 녀석들</div> */}
                     <div className='right'>
+                        <div className='userName'>강단이</div>
                         <NavyButton onClick={googleAPI.logout}>로그아웃</NavyButton>
                     </div>
                 </Wrapper>
