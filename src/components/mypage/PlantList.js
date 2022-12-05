@@ -82,6 +82,41 @@ const PlantList = () => {
     let nicknamearr = [];
     const plant_Id = useRef(null);
     const ID = useRef(null);
+    const [newPlantId, setNewPlantId] = useState();
+
+    const [arr, SetArr] = useState([
+        { value: '', name: '종류를 선택하세요'},
+        { value: 1, name: '팽이버섯' },
+        { value: 2, name: '양송이버섯' },
+        { value: 3, name: '표고버섯' },
+        { value: 4, name: '새송이버섯' },
+        { value: 5, name: '느타리버섯' },
+        { value: 6, name: '레몬밤' },
+        { value: 7, name: '애플민트' },
+        { value: 8, name: '스위트바질' },
+        { value: 9, name: '오레가노' },
+        { value: 10, name: '파슬리' },
+        { value: 11, name: '딸기' },
+        { value: 12, name: '올리브' },
+        { value: 13, name: '방울토마토' },
+        { value: 14, name: '골든베리' },
+        { value: 15, name: '오크라' },
+        { value: 16, name: '마늘' },
+        { value: 17, name: '아스파라거스' },
+        { value: 18, name: '대파' },
+        { value: 19, name: '샐러리' },
+        { value: 20, name: '양파줄기' },
+        { value: 21, name: '무' },
+        { value: 22, name: '당근' },
+        { value: 23, name: '고구마' },
+        { value: 24, name: '감자' },
+        { value: 25, name: '콩나물' },
+        { value: 26, name: '숙주' },
+        { value: 27, name: '메밀싹' },
+        { value: 28, name: '브로콜리싹' },
+        { value: 29, name: '무싹' },
+        { value: 30, name: '양배추싹' },
+    ]);
 
     const PLANTS = [
         { value: '', name: '종류를 선택하세요'},
@@ -177,41 +212,51 @@ const PlantList = () => {
     }
 
     const nicknamemodalConfirmButton = () => {
-        axios
-        .put(`/mypage/modify/nickname?id=${id}&nickname=${newNickname}`, { nickname: newNickname }, { withCredentials: true })
-        .then((response) => {
-            console.log(response);
-            console.log(id);
-            console.log(plantId);
-            console.log(nickname);
-            console.log(newNickname);
-            window.location.reload();
-        })
-        .catch((error) => {
-            console.log(error.response);
-            console.log(id);
-            console.log(plantId);
-            console.log(nickname);
-            console.log(newNickname);
-            alert("다시 시도해주세요");
-        })
+        if (newNickname) {
+            axios
+            .put(`/mypage/modify/nickname?id=${id}&nickname=${newNickname}`, { nickname: newNickname }, { withCredentials: true })
+            .then((response) => {
+                console.log(response);
+                console.log(id);
+                console.log(plantId);
+                console.log(nickname);
+                console.log(newNickname);
+                window.location.reload();
+            })
+            .catch((error) => {
+                console.log(error.response);
+                console.log(id);
+                console.log(plantId);
+                console.log(nickname);
+                console.log(newNickname);
+                alert("다시 시도해주세요");
+            })
+        }
+        else {
+            alert('애칭을 입력해주세요');
+        }
     }
 
     const waterdatemodalConfirmButton = async() => {
-        await axios
-        .put(`/mypage/modify/waterdate?id=${id}&waterDate=${newWaterDate}`, { waterDate: newWaterDate }, { withCredentials: true })
-        .then((response) => {
-            console.log(response);
-            console.log(plantId);
-            console.log(newWaterDate);
-            window.location.reload();
-        })
-        .catch((error) => {
-            console.log(error.response);
-            console.log(plantId);
-            console.log(newWaterDate);
-            alert("다시 시도해주세요");
-        })
+        if(newWaterDate) {
+            await axios
+            .put(`/mypage/modify/waterdate?id=${id}&waterDate=${newWaterDate}`, { waterDate: newWaterDate }, { withCredentials: true })
+            .then((response) => {
+                console.log(response);
+                console.log(plantId);
+                console.log(newWaterDate);
+                window.location.reload();
+            })
+            .catch((error) => {
+                console.log(error.response);
+                console.log(plantId);
+                console.log(newWaterDate);
+                alert("다시 시도해주세요");
+            })
+        }
+        else {
+            alert('물 준 날짜를 입력해주세요');
+        }
     }
 
     const removemodalCancelButton = () => {
@@ -242,17 +287,32 @@ const PlantList = () => {
     }
 
     const registermodalConfirmButton = async() => {
-        await axios
-        .post(`/mypage/new?memberId=${memberId}&plantId=${plantId}&imgUri=${imgFile}&waterDate=${newWaterDate}&nickname=${newNickname}`, { memberId: memberId, plantId: plantId, imgUri: imgFile, waterDate: newWaterDate, nickname: newNickname }, { withCredentials: true })
-        .then((response) => {
-            console.log(response);
-            window.location.reload();
-        })
-        .catch((error) => {
-            console.log(error.response);
-            alert("다시 시도해주세요");
-        })
         // 빈칸일때 alert
+        if (newPlantId) {
+            if (newNickname) {
+                if (newWaterDate) {
+                    await axios
+                    .post(`/mypage/new?memberId=${memberId}&plantId=${newPlantId}&imgUri=${imgFile}&waterDate=${newWaterDate}&nickname=${newNickname}`, { memberId: memberId, plantId: plantId, imgUri: imgFile, waterDate: newWaterDate, nickname: newNickname }, { withCredentials: true })
+                    .then((response) => {
+                        console.log(response);
+                        window.location.reload();
+                    })
+                    .catch((error) => {
+                        console.log(error.response);
+                        alert("다시 시도해주세요");
+                    })
+                }
+                else {
+                    alert('최근 물 준 날짜를 입력하세요');
+                }
+            }
+            else {
+                alert('식물 애칭을 입력하세요');
+            }
+        }
+        else {
+            alert('식물을 선택해주세요')
+        }
     }
 
     const handleNickname = (e) => {
@@ -268,7 +328,7 @@ const PlantList = () => {
     const handleSelectChange = (e) => {
         setNewName(e.target.value);
         console.log(e.target.value);
-        setPlantId(e.target.value);
+        setNewPlantId(e.target.value);
         setId(e.target.value);
     }
 
@@ -316,7 +376,13 @@ const PlantList = () => {
                             <img src='/assets/waterdrop.png' alt='watedrop' />
                         </div> : null
                     }
-                    <img className='preview_image' src={element.imgUri} alt='plantimg' />
+                    {/* <img className='preview_image' src={element.imgUri} alt='plantimg' /> */}
+                    <div className='preview_imageBox'>
+                    { element.imgUri ?
+                        <img className='preview_image' src={element.imgUri} alt='plantimg' />
+                        : <img className='preview_image' src='/assets/profile.png' alt='plantimg' />
+                    }
+                    </div>
                     <div className='preview_info'>
                         <div>{element.waterDate}</div>
                         <div>{element.nickname}</div>
@@ -418,7 +484,7 @@ const PlantList = () => {
                                 <div style={{display: 'flex', marginTop: '1.5rem'}}>
                                     <div>식물 이름 :</div>&nbsp;
                                     <SelectBox onChange={handleSelectChange}>
-                                        {PLANTS.map((option) => (
+                                        {arr.map((option) => (
                                             <option
                                             key={option.value}
                                             value={option.value}

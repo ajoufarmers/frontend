@@ -41,17 +41,17 @@
 .post_buttons {
     margin: 0 auto;
     display:flex;
-    /* width: 100%; */
+    width: 100%;
     align-items: center;
     justify-content: center;
     margin-top: 3rem;
-    margin-left: 10rem;
+    margin-left: 4.5rem;
     /* background-color: darkorange; */
 }
 
 .button {
-    margin-left: -83px;
-    margin-right: -33px;
+    margin-left: -203px;
+    /* margin-right: -33px; */
 }
 
 input {

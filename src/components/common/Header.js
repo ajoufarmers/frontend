@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Responsive from './Responsive';
 import NavyButton from './NavyButton';
 import '../../lib/styles/fonts/font.css';
@@ -19,6 +19,9 @@ const Wrapper = styled(Responsive)`
     height: 4rem;
     display: flex;
     align-items: center;
+    .logo {
+        cursor: pointer;
+    }
     .logoimage {
         width: 45px;
     }
@@ -43,14 +46,25 @@ const Spacer = styled.div`
 `;
 
 const Header = () => {
+    const navigate = useNavigate();
+    const goMain = () => {
+        navigate('/main');
+    }
+
     return (
         <>
             <HeaderBlock>
                 <Wrapper>
-                    <Link to="/main" className="logo">
+                    {/* <Link to="/main" className="logo">
                         <img className='logoimage' src='/assets/logo.png' alt="logo" />
-                    </Link>
-                    <div className='logotext'>맛있는 녀석들</div>
+                    </Link> */}
+                    <div className='logo' onClick={()=>goMain()}>
+                        <img className='logoimage' src='/assets/logo.png' alt="logo" />
+                    </div>
+                    <div className='logo' onClick={()=>goMain()}>
+                        <div className='logotext'>맛있는 녀석들</div>
+                    </div>
+                    {/* <div className='logotext'>맛있는 녀석들</div> */}
                     <div className='right'>
                         <NavyButton onClick={googleAPI.logout}>로그아웃</NavyButton>
                     </div>
