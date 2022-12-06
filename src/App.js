@@ -18,7 +18,7 @@ function App() {
       <Route path="/" element={<LoginPage />} />
       <Route path="/main" element={<MainPage />} />
       <Route path="/survey" element={<SurveyPage />} />
-      <Route path='/recommend' element={<RecommendPage />} />
+      {/* <Route path='/recommend' element={<RecommendPage />} /> */}
       <Route path='/diary' element={<CalendarPage />} />
       <Route path='/mypage' element={<MyPage />} />
       <Route path='/write' element={<WritediaryPage />} />

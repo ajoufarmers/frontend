@@ -42,6 +42,8 @@ const Step5 = ({ checkList, arr, prevSteps, nextSteps }) => {
     const [recList, setRecList] = useState([]);
     // const [otherList, setOtherList] = useState([]);
     let otherList = [];
+    const [plantId, setPlantId] = useState();
+    const navigate = useNavigate();
 
     function checkOnlyOne(id) {
         console.log('id', id);
@@ -90,6 +92,7 @@ const Step5 = ({ checkList, arr, prevSteps, nextSteps }) => {
                         console.log(response);
                         setRec(1);
                         setRecList(response.data);
+                        setPlantId(response.data[0].id);
                         console.log(response.data[0].id);
                     })
                     .catch((error) => {
@@ -176,6 +179,10 @@ const Step5 = ({ checkList, arr, prevSteps, nextSteps }) => {
         console.log(otherList);
     }
 
+    const goDetail = (id) => {
+        navigate(`/detail/${id}`);
+    }
+
     function viewOthers () {
         for(var i=recList.length-1; i>0; i--) {
             otherList.push({
@@ -187,7 +194,7 @@ const Step5 = ({ checkList, arr, prevSteps, nextSteps }) => {
         const items = otherList.map((element) =>
             <>
             <div className='others'>
-                <img className='others_image' src={(element).imgUri} alt='herb' style={{width: '150px;', height: '150px'}}/>
+                <img className='others_image' src={(element).imgUri} alt='herb' style={{width: '150px;', height: '150px'}} onClick={()=>goDetail(element.id)} />
                 <div className='others_info'>{(element).name}</div>
             </div>
             </>
@@ -205,7 +212,7 @@ const Step5 = ({ checkList, arr, prevSteps, nextSteps }) => {
             <>
                 <div className='title'>식물 추천 결과</div>
                 <div className='recommend_box'>
-                    <img className='plant_image' src={recList[0].imgUri} alt='herb' style={{width: '350px', height: '350px'}}/>
+                    <img className='plant_image' src={recList[0].imgUri} alt='herb' style={{width: '350px', height: '350px'}} onClick={()=>goDetail(plantId)}/>
                     <div className='plant_info'>{recList[0].name}</div>
                     <div className='buttons'>
                         <NavyButton onClick={otherButtonClick}>다른 추천 식물</NavyButton>
