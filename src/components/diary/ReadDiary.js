@@ -1,7 +1,7 @@
 import './ReadDiary.css';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { Navigate, useLocation, useNavigate  } from 'react-router-dom';
+import { useLocation, useNavigate  } from 'react-router-dom';
 import styled from 'styled-components';
 import TransparentButton from '../common/TransparentButton';
 import AskModal from '../common/AskModal.js';
@@ -78,6 +78,8 @@ const ReadDiary = () => {
 
     const editStateButtonClick = () => {
         setEditStateModal(true);
+        setChangedContent(theDiaryContent());
+        setChangedState(theDiaryStateNum());
     }
 
     const onEditStateCancel = () => {
@@ -87,11 +89,11 @@ const ReadDiary = () => {
 
     const onEditStateConfirm = async() => {
         await axios
-        .patch(`/diary/${diaryid}`, { state: state }, { withCredentials: true })
+        .put(`/diary/${diaryid}`, { memberId: memberId, date: date, state: changedState, content: changedContent }, { withCredentials: true })
         .then((response) => {
             console.log(response);
             setEditStateModal(false);
-            Navigate('/diary');
+            window.location.reload();
         })
         .catch((error) => {
             console.log(error.response);
@@ -101,6 +103,8 @@ const ReadDiary = () => {
 
     const editContentButtonClick = () => {
         setEditContentModal(true);
+        setChangedContent(theDiaryContent());
+        setChangedState(theDiaryStateNum());
     }
 
     const onEditContentCancel = () => {
@@ -110,11 +114,11 @@ const ReadDiary = () => {
 
     const onEditContentConfirm = async() => {
         await axios
-        .patch('http://3.39.17.18/diaries/content', { content: content }, { withCredentials: true })
+        .put(`/diary/${diaryid}`, { memberId: memberId, date: date, state: changedState, content: changedContent }, { withCredentials: true })
         .then((response) => {
             console.log(response);
-            setEditStateModal(false);
-            Navigate('/diary');
+            setEditContentModal(false);
+            window.location.reload();
         })
         .catch((error) => {
             console.log(error.response);
@@ -141,23 +145,6 @@ const ReadDiary = () => {
             console.log(error.response);
         })
     }
-
-    useEffect(() => {
-        axios
-        .get('/checklogin', { withCredentials: true })
-        .then(response => {
-            // provider_Id.current = response.data[0].providerId;
-
-            axios
-            .get(`http://3.39.17.18/diaries`, { withCredentials: true })
-            .then((response) => {
-                setDiarylist(response.data.fetchResult);
-            })
-            .catch((error) => {
-                console.log(error.response);
-            })
-            })
-    }, [])
 
     useEffect(() => {
         axios
@@ -255,6 +242,15 @@ const ReadDiary = () => {
         };
     }
 
+    function theDiaryStateNum() {
+        addDiaryList();
+        for (var j=0; j<diarylist.length; j++) {
+            if(path === '/read/' + info[j]) {
+                return diarylist[j].state;
+            };
+        };
+    }
+
     const handleSelectChange = (e) => {
         setChangedState(e.target.value);
     }
@@ -307,7 +303,7 @@ const ReadDiary = () => {
                     description={
                         <>
                             <div>수정할 내용을 입력하세요</div>
-                            <TextArea onChange={handleContentChange} placeholder={content} />
+                            <TextArea onChange={handleContentChange} placeholder={theDiaryContent()} />
                         </>
                     }
                     onConfirm={onEditContentConfirm}
