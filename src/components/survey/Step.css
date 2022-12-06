@@ -71,7 +71,7 @@ input:checked + label {
 }
 
 .plant_image {
-    background-color: aliceblue;
+    /* background-color: aliceblue; */
     margin: 0 auto;
     display: block;
     text-align: center;
@@ -80,17 +80,22 @@ input:checked + label {
 }
 
 .plant_info {
-    background-color: aquamarine;
+    background-color: #f9f2ea;
     margin: 0 auto;
+    margin-top: 10px;
     text-align: center;
     font-family: "S-CoreDream-2Light";
     font-size: 1.3rem;
     font-weight: bold;
+    width: 350px;
+    padding: 5px;
+    border-radius: 10px;
 }
 
 .others_box {
-    background-color: brown;
+    /* background-color: brown; */
     margin: 0 auto;
+    margin-top: 2rem;
     width: 80%;
     display: flex;
     flex-flow: row nowrap;
@@ -98,21 +103,29 @@ input:checked + label {
 }
 
 .others {
-    background-color: cadetblue;
+    /* background-color: cadetblue; */
     padding: 10px 20px;
+    float: right;
 }
 
 .others_image {
-    background-color: blue;
+    /* background-color: blue; */
     margin: 0 auto;
     display: block;
     width: 200px;
 }
 
 .others_info {
-    background-color: yellow;
+    background-color: #f9f2ea;
     margin: 0 auto;
+    margin-top: 7px;
     display: block;
     text-align: center;
     width: 200px;
+    font-family: "S-CoreDream-2Light";
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 3px;
+    border-radius: 10px;
+    margin-bottom: 3rem;
 }

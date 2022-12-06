@@ -11,11 +11,11 @@ const StyledButton = styled(GreenButton)`
 `;
 
 const MainPage = () => {
-    document.body.style.cssText = `
-    position: fixed; 
-    top: -${window.scrollY}px;
-    overflow-y: scroll;
-    width: 100%;`;
+    // document.body.style.cssText = `
+    // position: fixed; 
+    // top: -${window.scrollY}px;
+    // overflow-y: scroll;
+    // width: 100%;`;
 
     const navigate = useNavigate();
 

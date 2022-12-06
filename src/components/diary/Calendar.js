@@ -28,24 +28,6 @@ const Calendar = () => {
 
     useEffect(() => {
         axios
-        .get('/checklogin', { withCredentials: true })
-        .then(response => {
-            setState(response.status);
-            provider_Id.current = response.data[0].providerId;
-            axios
-            .get(`http://3.39.17.18/diaries/${provider_Id.current}`, { withCredentials: true })
-            .then((response) => {
-                console.log(response.data.fetchResult);
-                setDiarylist(response.data.fetchResult);
-            })
-            .catch((error) => {
-                console.log(error.response);
-            })
-            })
-    }, [])
-
-    useEffect(() => {
-        axios
         .get(`/diary/list/${memberId}`, { withCredentials: true })
         .then((response) => {
             console.log(response);
@@ -144,6 +126,7 @@ const Calendar = () => {
                 })
             }
         }
+        console.log(diaryarr);
         return (
             diaryarr
         )

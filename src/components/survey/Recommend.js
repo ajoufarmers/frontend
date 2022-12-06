@@ -1,15 +1,39 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import './Step.css';
 import NavyButton from '../common/NavyButton';
 import TransparentButton from '../common/TransparentButton';
+import axios from 'axios';
 import styled from 'styled-components';
 
-const Recommend = ({ prevSteps }) => {
+const Recommend = ({ arr, prevSteps }) => {
     const [otherplants, setOtherplants] = useState(false);
+    const condition = useLocation();
 
     function otherButtonClick() {
         setOtherplants(true);
     }
+
+    const data = {
+        category: condition.state,
+        // size: condition.state.arr[1],
+        // difficulty: condition.state.arr[2],
+        // brightness: condition.state.arr[3],
+        // waterRate: condition.state.arr[4],
+    };
+
+    useEffect(() => {
+        axios
+        .get('/recommend/list', { params: data }, { withCredentials: true })
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((error) => {
+            console.log(error.response);
+            console.log(arr);
+            console.log(condition.state);
+        })
+    }, []);
 
     return (
         <>
