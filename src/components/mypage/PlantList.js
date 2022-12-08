@@ -516,7 +516,7 @@ const PlantList = () => {
                     onCancel={registermodalCancelButton}
                 />
             </div>
-            <div className='preview_box'>
+            <div className='preview_box_myp'>
                 {viewPlantList()}
             </div>
         </>

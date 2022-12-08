@@ -57,7 +57,7 @@ const Dictonary = () => {
         <>
             <div className="title">식물 도감</div>
             <div className="search_button">
-                <GreenButton onClick={searchButtonClick}>식물 검색</GreenButton>
+                <GreenButton onClick={searchButtonClick} style={{height: '2.5rem'}}>식물 검색</GreenButton>
                 <TransparentButton onClick={homeButtonClick}>메인으로</TransparentButton>
             </div>
             <div className="preview_box">

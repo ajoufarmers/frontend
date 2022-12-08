@@ -29,16 +29,17 @@
     margin-right: 4rem;
 }
 
-.preview_box {
+.preview_box_myp {
     background-color: brown;
     margin: 0 auto;
-    margin-top: 2rem;
     width: 95%;
     justify-content: center;
     position: relative;
     align-items: center;
     text-align: center;
     z-index: 1000;
+    margin-top: -3rem;
+    margin-left: 4rem;
 }
 
 .preview {
