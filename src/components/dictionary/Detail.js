@@ -66,13 +66,13 @@ const Detail = () => {
                     <div>{name}</div>
                 </div>
                 <div className="detail">
-                    {'소개 :'}&nbsp;{des}<br />
-                    {'온도 :'}&nbsp;{temp}<br />
-                    {'습도 :'}&nbsp;{hum}<br />
-                    {'물 :'}&nbsp;{water}<br />
-                    {'영양성분 :'}&nbsp;{nutrition}<br />
-                    {'수확시기 :'}&nbsp;{harvest}<br />
-                    {'장소 :'}&nbsp;{mange}<br />
+                    {'소개 :'}&nbsp;{des}<br /><br />
+                    {'온도 :'}&nbsp;{temp}<br /><br />
+                    {'습도 :'}&nbsp;{hum}<br /><br />
+                    {'물 :'}&nbsp;{water}<br /><br />
+                    {'영양성분 :'}&nbsp;{nutrition}<br /><br />
+                    {'수확시기 :'}&nbsp;{harvest}<br /><br />
+                    {'관리 방법 :'}&nbsp;{mange}<br />
                 </div>
             </div>
         </>
