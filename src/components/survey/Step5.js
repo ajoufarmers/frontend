@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Step.css';
 import GreenButton from '../common/GreenButton';
 import NavyButton from '../common/NavyButton';
 import TransparentButton from '../common/TransparentButton';
 import styled from 'styled-components';
 import axios from 'axios';
-import * as recommendAPI from '../../lib/api/recommend';
 
 const StyledButton = styled(GreenButton)`
     & + & {
@@ -14,27 +13,7 @@ const StyledButton = styled(GreenButton)`
     }
 `;
 
-// const submitContent = async() => {
-//     await axios
-//     .get('/checklogin', { withCredentials: true })
-//     .then(response => {
-//         provider_Id.current = response.data[0].providerId;
-
-//         axios
-//         .post(`http://3.39.17.18/diaries/${provider_Id.current}`, { content: diaryContent.content }, { withCredentials: true })
-//         .then((response) => {
-//             console.log(response);
-//             alert('등록 완료');
-//             console.log(diaryContent.content);
-//             navigate('/main');
-//         })
-//         .catch((error) => {
-//             console.log(error.response);
-//         })
-//     })
-// };
-
-const Step5 = ({ checkList, arr, prevSteps, nextSteps }) => {
+const Step5 = ({ checkList, arr, prevSteps, nextSteps, home }) => {
     // 물 주는 빈도 : 낮음, 보통, 자주
     const [checkedValue, setCheckedValue] = useState('');
     const [isChecked, setIsChecked] = useState(false);
@@ -119,6 +98,7 @@ const Step5 = ({ checkList, arr, prevSteps, nextSteps }) => {
         return (
             <>
                 <div className='title'>식물 추천 받기</div>
+                <TransparentButton onClick={home} style={{float: 'right', marginRight: '5rem'}}>메인으로</TransparentButton>
                 <div className='question_box'>
                     {'5. 물 주는 빈도'}
                 </div>
@@ -217,6 +197,7 @@ const Step5 = ({ checkList, arr, prevSteps, nextSteps }) => {
                     <div className='buttons'>
                         <NavyButton onClick={otherButtonClick}>다른 추천 식물</NavyButton>
                         <TransparentButton onClick={backButtonClick}>이전으로</TransparentButton>
+                        <TransparentButton onClick={home} style={{marginLeft: '-1rem'}}>메인으로</TransparentButton>
                     </div>
                 </div>
                 <div className='others_box'>

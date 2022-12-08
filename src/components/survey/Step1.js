@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Step.css';
 import GreenButton from '../common/GreenButton';
+import TransparentButton from '../common/TransparentButton';
 
-const Step1 = ({ checkList, arr, nextSteps }) => {
+const Step1 = ({ checkList, arr, nextSteps, home }) => {
     // 종류 : 버섯류,허브,열매,잎 및 줄기,뿌리 및 땅속줄기, 새싹류
     const [isChecked, setIsChecked] = useState(false);
     const [checkedValue, setCheckedValue] = useState('');
@@ -57,6 +58,7 @@ const Step1 = ({ checkList, arr, nextSteps }) => {
     return (
         <>
             <div className='title'>식물 추천 받기</div>
+            <TransparentButton onClick={home} style={{float: 'right', marginRight: '5rem'}}>메인으로</TransparentButton>
             <div className='question_box'>
                 {'1. 종류'}
             </div>
@@ -126,10 +128,12 @@ const Step1 = ({ checkList, arr, nextSteps }) => {
                 {
                     isChecked === true
                     ?
+                    <>
                         <GreenButton onClick={nextSteps}>다음</GreenButton>
-                    : <div>
+                    </>
+                    : <>
                         <GreenButton onClick={checkOne}>다음</GreenButton>
-                    </div>
+                    </>
                 }
             </div>
         </>

@@ -369,7 +369,7 @@ const PlantList = () => {
     function viewPlantList () {
         const items = plantList.map((element, id) =>
             <>
-            {/* <div className='preview_box'> */}
+            <div className='preview_box'>
                 <div className='preview'>
                     { (element.isWater) ?
                         <div className='preview_water'>
@@ -445,7 +445,7 @@ const PlantList = () => {
                         </div>
                     </div>
                 </div>
-            {/* </div> */}
+            </div>
             </>
         );
         return (
@@ -453,11 +453,18 @@ const PlantList = () => {
         )
     }
 
+    const homeButtonClick = () => {
+        navigate('/main');
+    }
+
     return (
         <>
             <div className='title'>마이페이지</div>
             <div className='register_box'>
-                <NavyButton onClick={registerButton} className='register_button'>식물 등록</NavyButton>
+                <div className='register_button'>
+                    <NavyButton onClick={registerButton}>식물 등록</NavyButton>
+                    <TransparentButton onClick={homeButtonClick}>메인으로</TransparentButton>
+                </div>
                 <AskModal
                     visible={registerModal}
                     title="식물 등록"

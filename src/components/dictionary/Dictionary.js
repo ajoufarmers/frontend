@@ -4,25 +4,13 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import GreenButton from '../common/GreenButton';
-import AskModal from '../common/AskModal.js';
+import TransparentButton from '../common/TransparentButton';
 
 const Dictonary = () => {
     const [plantList, setPlantList] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
-        // axios
-        // .get('/checklogin', { withCredentials: true })
-        // .then((response) => {
-        //     axios
-        //     .get('http://localhost:8080/plant/list', { withCredentials: true })
-        //     .then((response) => {
-        //         setPlantList(response.data);
-        //     })
-        //     .catch((error) => {
-        //         console.log(error.response);
-        //     })
-        // })
         axios
         .get('/plant/list', { withCredentials: true })
         .then((response) => {
@@ -61,11 +49,16 @@ const Dictonary = () => {
         navigate('/search');
     }
 
+    const homeButtonClick = () => {
+        navigate('/main');
+    }
+
     return (
         <>
             <div className="title">식물 도감</div>
             <div className="search_button">
                 <GreenButton onClick={searchButtonClick}>식물 검색</GreenButton>
+                <TransparentButton onClick={homeButtonClick}>메인으로</TransparentButton>
             </div>
             <div className="preview_box">
                 {viewPlantList()}

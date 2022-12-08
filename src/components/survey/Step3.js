@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Step.css';
 import GreenButton from '../common/GreenButton';
+import TransparentButton from '../common/TransparentButton';
 import styled from 'styled-components';
 
 const StyledButton = styled(GreenButton)`
@@ -9,7 +10,7 @@ const StyledButton = styled(GreenButton)`
     }
 `;
 
-const Step3 = ({ checkList, arr, prevSteps, nextSteps }) => {
+const Step3 = ({ checkList, arr, prevSteps, nextSteps, home }) => {
     // 난이도 : 상,중,하
     const [checkedValue, setCheckedValue] = useState('');
     const [isChecked, setIsChecked] = useState(false);
@@ -62,6 +63,7 @@ const Step3 = ({ checkList, arr, prevSteps, nextSteps }) => {
     return (
         <>
             <div className='title'>식물 추천 받기</div>
+            <TransparentButton onClick={home} style={{float: 'right', marginRight: '5rem'}}>메인으로</TransparentButton>
             <div className='question_box'>
                 {'3. 난이도'}
             </div>

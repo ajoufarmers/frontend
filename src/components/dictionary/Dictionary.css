@@ -11,12 +11,9 @@
 }
 
 .search_button {
-    /* background-color: darksalmon; */
-    width: 10%;
-    margin-top: 1rem;
-    position: relative;
-    right: -87%;
-    text-align: center;
+    float: right;
+    margin-right: 2rem;
+    margin-top: -1rem;
 }
 
 .search_box {
@@ -36,6 +33,7 @@
     align-items: center;
     text-align: center;
     margin-left: 3rem;
+    margin-top: 7rem;
 }
 
 .preview {

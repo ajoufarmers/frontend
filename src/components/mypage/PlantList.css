@@ -26,11 +26,11 @@
 
 .register_button {
     float: right;
-    margin-right: 2rem;
+    margin-right: 4rem;
 }
 
 .preview_box {
-    /* background-color: brown; */
+    background-color: brown;
     margin: 0 auto;
     margin-top: 2rem;
     width: 95%;
@@ -48,6 +48,7 @@
     padding: 10px 20px;
     margin-left: 0.5rem;
     margin-right: 0.5rem;
+    margin-top: -3rem;
     float: left;
     position: relative;
 }

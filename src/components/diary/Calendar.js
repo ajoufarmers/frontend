@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -22,8 +22,6 @@ const CalendarBlock = styled.div`
 const Calendar = () => {
     const [memberId, setMemberId] = useState(1);
     const [diarylist, setDiarylist] = useState([]);
-    const [state, setState] = useState('');
-    const provider_Id = useRef(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -136,6 +134,10 @@ const Calendar = () => {
         navigate('/write');
     }
 
+    const homeButtonClick = () => {
+        navigate('/main');
+    }
+
     return (
         <>
         <div className='calendar-wrapper'>
@@ -156,11 +158,15 @@ const Calendar = () => {
                         text: '일기 작성',
                         click: writeButtonClick
                     },
+                    homeButton: {
+                        text: '메인으로',
+                        click: homeButtonClick
+                    }
                 }}
                 headerToolbar={{
                     left: "prevYear,prev myCustomButton",
                     center: "title",
-                    right: "today next,nextYear"
+                    right: "homeButton today next,nextYear"
                 }}
                 />
             </CalendarBlock>
