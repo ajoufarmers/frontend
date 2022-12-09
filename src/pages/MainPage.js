@@ -51,7 +51,7 @@ const MainPage = () => {
                     <div className='text'>
                         식물 ~~~~~~ 기록할 수 있습니다.
                     </div>
-                    <StyledButton onClick={diaryButton}>성장 일기</StyledButton>
+                    <StyledButton onClick={diaryButton}>식물 일기</StyledButton>
                 </div>
                 <div className='button_card'>
                     <img src='/assets/thumbsup.png' alt='dictionary' />

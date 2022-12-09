@@ -151,7 +151,6 @@ const PlantList = () => {
         console.log(plantList[id-1].nickname);
         console.log(nickname);
         console.log(plantId);
-        
         document.body.style.cssText = `
         position: fixed;
         top: -${window.scrollY}px;
@@ -168,7 +167,6 @@ const PlantList = () => {
         console.log(id);
         console.log(plantList[id-1].waterDate);
         console.log(waterDate);
-
         document.body.style.cssText = `
         position: fixed;
         top: -${window.scrollY}px;
@@ -180,7 +178,6 @@ const PlantList = () => {
         setRemoveModal(true);
         setId(plantList[id-1].id);
         console.log(id);
-
         document.body.style.cssText = `
         position: fixed;
         top: -${window.scrollY}px;
@@ -401,23 +398,10 @@ const PlantList = () => {
                             visible={nicknameModal}
                             title="식물 정보 수정"
                             description={
-                                <>
-                                <img className='preview_image' src='/assets/lemontree.jpg' alt="herb" style={{marginBottom: '1rem'}}/>
-                                {/* <GreenButton onClick={imageButtonClick} style={{marginTop: "1rem"}}>사진 수정</GreenButton>
-                                <input
-                                        type="file"
-                                        accept="image/*"
-                                        name="profile"
-                                        ref={fileInput}
-                                        onChange={handleImage}
-                                        style={{ display: "none" }}
-                                />
-                                <br /> */}
                                 <div style={{display: 'flex', marginTop: '1.5rem'}}>
                                     <div>애칭 :</div>&nbsp;
                                     <TextArea onChange={handleNickname} placeholder={nickname} />
                                 </div>
-                                </>
                             }
                             onConfirm={nicknamemodalConfirmButton}
                             onCancel={nicknamemodalCancelButton}

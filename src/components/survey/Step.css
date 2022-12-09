@@ -67,7 +67,7 @@ input:checked + label {
     /* background-color: black; */
     margin: 0 auto;
     width: 500px;
-
+    cursor: pointer;
 }
 
 .plant_image {
@@ -106,6 +106,7 @@ input:checked + label {
     /* background-color: cadetblue; */
     padding: 10px 20px;
     float: right;
+    cursor: pointer;
 }
 
 .others_image {
