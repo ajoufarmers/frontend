@@ -76,6 +76,8 @@ const Step5 = ({ checkList, arr, prevSteps, nextSteps, home }) => {
                     })
                     .catch((error) => {
                         console.log(error.response);
+                        alert("추천 결과가 없습니다. 다시 시도해주세요");
+                        window.location.reload();
                     })
                 }  
             </div>
