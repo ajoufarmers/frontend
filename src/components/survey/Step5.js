@@ -184,7 +184,8 @@ const Step5 = ({ checkList, arr, prevSteps, nextSteps, home }) => {
         console.log(otherList);
         return (
             <>
-            <div>{items}</div>
+            {/* <div>{items}</div> */}
+            { otherList[0] ? <div>{items}</div> : alert("다른 추천 식물이 없습니다")}
             </>
         )
     }
